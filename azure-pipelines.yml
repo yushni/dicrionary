@@ -7,5 +7,8 @@ variables:
     imageName: 'pipelines-go:$(build.buildId)'
 
 steps:
-    - script: docker build -f Dockerfile -t $(imageName) .
-      displayName: 'docker build'
+    -   script: docker build -f Dockerfile -t $(imageName) .
+        displayName: 'docker build'
+
+    -   script:  docker run -e CI=true $(imageName) go test -coverprofile=coverage.out ./...
+        displayName: 'docker test'
