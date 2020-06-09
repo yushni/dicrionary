@@ -1,14 +1,25 @@
 trigger:
     - master
-pool:
-    vmImage: 'Ubuntu 16.04'
 
-variables:
-    imageName: 'pipelines-go:$(build.buildId)'
+pool:
+    vmImage: 'ubuntu-latest'
 
 steps:
-    -   script: docker build -f Dockerfile -t $(imageName) .
-        displayName: 'docker build'
-
-    -   script:  docker run -e CI=true $(imageName) go test -coverprofile=coverage.out ./...
-        displayName: 'docker test'
+    - task: GoTool@0
+      inputs:
+          version: '1.13.5'
+    - task: Go@0
+      inputs:
+          command: 'get'
+          arguments: '-d'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
+    - task: Go@0
+      inputs:
+          command: 'build'
+          workingDirectory: '$(System.DefaultWorkingDirectory)'
+    - task: CopyFiles@2
+      inputs:
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    - task: PublishBuildArtifacts@1
+      inputs:
+          artifactName: drop
