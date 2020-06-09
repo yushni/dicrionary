@@ -33,4 +33,4 @@ steps:
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish artifact'
-      condition: succeededOrFailed()OPATH)/src/github.com/$(build.repository.name)'
+      condition: succeededOrFailed()
