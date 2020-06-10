@@ -4,36 +4,36 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/go
 
 trigger:
-- master
+    branches:
+        include:
+            - master
+    paths:
+        exclude:
+            - README.md
+            - .gitignore
 
-pool:
-  vmImage: 'ubuntu-latest'
+pr:
+    autoCancel: false
+    branches:
+        include:
+            - master
+    paths:
+        exclude:
+            - README.md
+            - .gitignore
 
 variables:
-  GOBIN:  '$(GOPATH)/bin' # Go binaries path
-  GOROOT: '/usr/local/go1.11' # Go installation path
-  GOPATH: '$(system.defaultWorkingDirectory)/gopath' # Go workspace path
-  modulePath: '$(GOPATH)/src/github.com/$(build.repository.name)' # Path to the module's code
+    GOPATH: '$(Pipeline.Workspace)/gowork'
 
-steps:
-- script: |
-    mkdir -p '$(GOBIN)'
-    mkdir -p '$(GOPATH)/pkg'
-    mkdir -p '$(modulePath)'
-    shopt -s extglob
-    shopt -s dotglob
-    mv !(gopath) '$(modulePath)'
-    echo '##vso[task.prependpath]$(GOBIN)'
-    echo '##vso[task.prependpath]$(GOROOT)/bin'
-  displayName: 'Set up the Go workspace'
+stages:
+    -   stage: Build
+        jobs:
+            -   template: templates/azure/jobs/build.yml   # Linux Build
+                parameters:
+                    name: 'Linux_Build'
+                    pool:
+                        vmImage: 'ubuntu-18.04'
 
-- script: |
-    go version
-    go get -v -t -d ./...
-    if [ -f Gopkg.toml ]; then
-        curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-        dep ensure
-    fi
-    go build -v .
-  workingDirectory: '$(modulePath)'
-  displayName: 'Get dependencies, then build'
+    -   stage: Test
+        jobs:
+            -   template: templates/azure/jobs/test.yml
