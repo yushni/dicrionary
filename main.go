@@ -11,5 +11,5 @@ func main() {
 }
 
 func HelloServer(w http.ResponseWriter, r *http.Request) {
-	_, _ = fmt.Fprintf(w, "Hello, %s!", r.URL.Path[1:])
+	_, _ = fmt.Fprintf(w, "Bye bye, %s!", r.URL.Path[1:])
 }

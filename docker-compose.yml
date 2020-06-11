@@ -7,7 +7,7 @@ services:
             -   type: bind
                 source: .
                 target: /pipeline
-        entrypoint: /pipeline/entrypoint.sh
-        command: /pipeline/do.sh
+        entrypoint: /pipeline/templates/azure/scripts/entrypoint.sh
+        command: /pipeline/templates/azure/scripts/do.sh
         environment:
             - PROJECT=smiling-breaker-269508
