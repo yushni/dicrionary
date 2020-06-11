@@ -4,9 +4,9 @@ services:
     gcloud:
         image: 'gcr.io/cloud-builders/gcloud-slim:latest'
         volumes:
-            - type: bind
-              source: .
-              target: /pipeline
+            -   type: bind
+                source: .
+                target: /pipeline
         entrypoint: /pipeline/entrypoint.sh
         command: /pipeline/do.sh
         environment:
