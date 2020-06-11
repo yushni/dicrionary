@@ -2,4 +2,4 @@
 
 set -e
 
-gcloud app deploy --project $PROJECT --quiet
+gcloud app deploy --project "$PROJECT" --quiet
