@@ -61,7 +61,7 @@ paths:
       parameters:
       - name: "wordId"
         in: "path"
-        required: True
+        required: true
         type: "integer"
         format: "int64"
       responses:
@@ -90,7 +90,7 @@ paths:
       parameters:
       - name: "wordId"
         in: "path"
-        required: True
+        required: true
         type: "integer"
         format: "int64"
       responses:
@@ -106,7 +106,7 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/Error500"
-  /words/list:
+  /words:
     get:
       tags:
       - "words"
@@ -116,13 +116,13 @@ paths:
       parameters:
         - name: "limit"
           in: "query"
-          required: False
+          required: false
           type: "integer"
           format: "int64"
           default: 20
         - name: "offset"
           in: "query"
-          required: False
+          required: false
           type: "integer"
           format: "int64"
           default: 1
