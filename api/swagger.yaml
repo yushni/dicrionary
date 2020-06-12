@@ -35,6 +35,8 @@ paths:
           description: "Successful operation"
           schema:
             type: "object"
+            required:
+            - "id"
             properties:
               id:
                 type: "integer"
@@ -143,11 +145,20 @@ paths:
 definitions:
   Translation:
     type: "object"
+    required:
+    - "translation"
+    - "transcription"
     properties:
       translation: "string"
       transcription: "string"
   Word:
     type: "object"
+    required:
+    - "word"
+    - "transcription"
+    - "translations"
+    - "origin"
+    - "samples"
     properties:
       word:
         type: "string"
@@ -165,6 +176,13 @@ definitions:
           type: "string"
   WordWithId:
     type: "object"
+    required:
+    - "id"
+    - "word"
+    - "transcription"
+    - "translations"
+    - "origin"
+    - "samples"
     properties:
       id:
         type: "integer"
@@ -185,16 +203,22 @@ definitions:
           type: "string"
   Error400:
     type: "object"
+    required:
+    - "message"
     properties:
       message:
         type: "string"
   Error404:
     type: "object"
+    required:
+    - "message"
     properties:
       message:
         type: "string"
   Error500:
     type: "object"
+    required:
+    - "message"
     properties:
       message:
         type: "string"
