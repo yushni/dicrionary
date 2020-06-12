@@ -41,6 +41,12 @@ paths:
                 format: "int64"
         "400":
           description: "Invalid input"
+          schema:
+            $ref: "#/definitions/Error400"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error500"
           
   /words/{wordId}:
     get:
@@ -63,12 +69,20 @@ paths:
             $ref: "#/definitions/WordWithId"
         "400":
           description: "Invalid Word ID"
+          schema:
+            $ref: "#/definitions/Error400"
         "404":
           description: "Word not found"
+          schema:
+            $ref: "#/definitions/Error404"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error500"
     
     delete:
       tags:
-      - "word"
+      - "words"
       summary: "Delete a word"
       operationId: "deleteWord"
       parameters:
@@ -80,8 +94,16 @@ paths:
       responses:
         "400":
           description: "Invalid Word ID"
+          schema:
+            $ref: "#/definitions/Error400"
         "404":
           description: "Word not found"
+          schema:
+            $ref: "#/definitions/Error404"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error500"
   /words/list:
     get:
       tags:
@@ -111,6 +133,12 @@ paths:
               $ref: "#/definitions/WordWithId"
         "400":
           description: "Invalid input"
+          schema:
+            $ref: "#/definitions/Error400"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/Error500"
           
 definitions:
   Translation:
@@ -155,3 +183,18 @@ definitions:
         type: "array"
         items:
           type: "string"
+  Error400:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+  Error404:
+    type: "object"
+    properties:
+      message:
+        type: "string"
+  Error500:
+    type: "object"
+    properties:
+      message:
+        type: "string"
