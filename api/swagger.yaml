@@ -39,7 +39,7 @@ paths:
               id:
                 type: "integer"
                 format: "int64"
-        "405":
+        "400":
           description: "Invalid input"
           
   /words/{wordId}:
@@ -109,6 +109,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/WordWithId"
+        "400":
+          description: "Invalid input"
           
 definitions:
   Translation:
