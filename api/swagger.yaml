@@ -9,15 +9,15 @@ externalDocs:
 host: "localhost"
 basePath: "/"
 tags:
-- name: "word"
+- name: "words"
   description: ""
 schemes:
 - "http"
 paths:
-  /word:
+  /words:
     post:
       tags:
-      - "word"
+      - "words"
       summary: "Add a new word to the dictionary"
       description: ""
       operationId: "addWord"
@@ -44,10 +44,10 @@ paths:
         "405":
           description: "Invalid input"
           
-  /word/{wordId}:
+  /words/{wordId}:
     get:
       tags:
-      - "word"
+      - "words"
       summary: "Get word by ID"
       description: ""
       operationId: "getWord"
@@ -86,11 +86,13 @@ paths:
           description: "Invalid Word ID"
         "404":
           description: "Word not found"
-  /word/list:
+  /words/list:
     get:
       tags:
-      - "word"
+      - "words"
       summary: "Get all words"
+      produces:
+      - "application/json"
       parameters:
         - name: "limit"
           in: "query"
