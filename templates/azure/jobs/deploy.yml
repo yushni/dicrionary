@@ -13,7 +13,7 @@ jobs:
             -   task: CmdLine@2
                 inputs:
                     script: |
-                        cp $(sakey.secureFilePath) ./sa-key.json
+                        cp $(deployauth.secureFilePath) ./sa-key.json
 
                         chmod +x  ./templates/azure/scripts/do.sh
                         chmod +x  ./templates/azure/scripts/entrypoint.sh
