@@ -1,9 +1,10 @@
 #!/bin/bash
 
-echo ls
-echo $(deployauth.secureFilePath)
-echo pwd
-
+ls
+pwd
+# shellcheck disable=SC2046
+# shellcheck disable=SC2005
+echo $(caCertificate.secureFilePath)
 # shellcheck disable=SC2046
 cp $(deployauth.secureFilePath) ./dictionary/sa-key.json
 
