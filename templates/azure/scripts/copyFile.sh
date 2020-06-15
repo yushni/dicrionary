@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ls
+
 # shellcheck disable=SC2046
 cp $(deployauth.secureFilePath) ./dictionary/sa-key.json
 
