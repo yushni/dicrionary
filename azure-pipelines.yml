@@ -35,5 +35,19 @@ stages:
                         vmImage: 'ubuntu-18.04'
 
     -   stage: Test
+        dependsOn:
+            - Build
         jobs:
             -   template: templates/azure/jobs/test.yml
+                parameters:
+                      name: 'Tests'
+
+    -   stage: Deploy
+        dependsOn:
+            - Build
+            - Test
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+        jobs:
+            -   template: templates/azure/jobs/deploy.yml
+                parameters:
+                    name: 'gcloud'

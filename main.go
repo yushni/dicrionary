@@ -10,6 +10,6 @@ func main() {
 	_ = http.ListenAndServe(":8080", nil)
 }
 
-func HelloServer(w http.ResponseWriter, r *http.Request) {
-	_, _ = fmt.Fprintf(w, "Bye bye, %s!", r.URL.Path[1:])
+func HelloServer(w http.ResponseWriter, _ *http.Request) {
+	_, _ = fmt.Fprint(w, "Bye bye CD, Hello CI only for master branch!")
 }
