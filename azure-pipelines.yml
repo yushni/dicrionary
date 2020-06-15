@@ -42,4 +42,4 @@ stages:
         jobs:
             -   template: templates/azure/jobs/deploy.yml
                 parameters:
-                    name: 'Google Cloud deploy'
+                    name: 'gcloud'
