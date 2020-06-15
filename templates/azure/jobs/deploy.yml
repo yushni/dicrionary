@@ -10,10 +10,13 @@ jobs:
                 name: deployauth
                 inputs:
                     secureFile: 'sa-key-i.json'
-            -   task: Bash@3
-                displayName: 'Copy auth file'
+            -   task: CmdLine@2
                 inputs:
-                    filePath: '$(Build.SourcesDirectory)/templates/azure/scripts/copyFile.sh'
+                    script: |
+                        cp $(sakey.secureFilePath) ./sa-key.json
+
+                        chmod +x  ./templates/azure/scripts/do.sh
+                        chmod +x  ./templates/azure/scripts/entrypoint.sh
             -   task: DockerCompose@0
                 inputs:
                     containerregistrytype: 'Container Registry'
