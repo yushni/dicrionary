@@ -23,5 +23,5 @@ jobs:
                     dockerRegistryEndpoint: 'GoogleContainerRegistry'
                     dockerComposeFile: '$(Build.SourcesDirectory)/docker-compose.yml'
                     action: 'Run a specific service'
-                    serviceName: 'gcloud app deploy'
+                    serviceName: 'gcloud'
                     detached: false
