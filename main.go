@@ -11,5 +11,5 @@ func main() {
 }
 
 func HelloServer(w http.ResponseWriter, _ *http.Request) {
-	_, _ = fmt.Fprint(w, "Bye bye CD, Hello CI!")
+	_, _ = fmt.Fprint(w, "Bye bye CD, Hello CI only for master branch!")
 }

@@ -26,19 +26,27 @@ variables:
     GOPATH: '$(Pipeline.Workspace)/gowork'
 
 stages:
-#    -   stage: Build
-#        jobs:
-#            -   template: templates/azure/jobs/build.yml   # Linux Build
-#                parameters:
-#                    name: 'Linux_Build'
-#                    pool:
-#                        vmImage: 'ubuntu-18.04'
-#
-#    -   stage: Test
-#        jobs:
-#            -   template: templates/azure/jobs/test.yml
+    -   stage: Build
+        jobs:
+            -   template: templates/azure/jobs/build.yml   # Linux Build
+                parameters:
+                    name: 'Linux_Build'
+                    pool:
+                        vmImage: 'ubuntu-18.04'
+
+    -   stage: Test
+        dependsOn:
+            - Linux_Build
+        jobs:
+            -   template: templates/azure/jobs/test.yml
+                parameters:
+                      name: 'Tests'
 
     -   stage: Deploy
+        dependsOn:
+            - Linux_Build
+            - Tests
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
         jobs:
             -   template: templates/azure/jobs/deploy.yml
                 parameters:
