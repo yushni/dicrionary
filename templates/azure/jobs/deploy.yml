@@ -3,7 +3,7 @@ parameters:
 
 jobs:
     -   job: ${{ parameters.name }}
-        displayName: "Deploy to dev: ${{ join(' ', parameters.images) }}"
+        displayName: "Deploy to dev"
         steps:
             -   task: DownloadSecureFile@1
                 displayName: 'Download gcloud deploy auth file'

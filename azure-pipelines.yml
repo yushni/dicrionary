@@ -3,7 +3,7 @@
 # Add steps that test, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/go
 
-trigger:
+    trigger:
     branches:
         include:
             - master
@@ -36,7 +36,7 @@ stages:
 
     -   stage: Test
         dependsOn:
-            - Linux_Build
+            - Build
         jobs:
             -   template: templates/azure/jobs/test.yml
                 parameters:
@@ -44,8 +44,8 @@ stages:
 
     -   stage: Deploy
         dependsOn:
-            - Linux_Build
-            - Tests
+            - Build
+            - Test
         condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
         jobs:
             -   template: templates/azure/jobs/deploy.yml
