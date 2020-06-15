@@ -11,9 +11,9 @@ jobs:
                 inputs:
                     secureFile: 'sa-key-i.json'
             -   task: Bash@3
-                displayName: 'Create image json details'
+                displayName: 'Copy auth file'
                 inputs:
-                    filePath: '$(Build.SourcesDirectory)/templates/azure/scripts/copyFile.sh'
+                    filePath: '$(Build.SourcesDirectory)/dictionary/templates/azure/scripts/copyFile.sh'
             -   task: DockerCompose@0
                 inputs:
                     containerregistrytype: 'Container Registry'
