@@ -13,7 +13,7 @@ jobs:
             -   task: Bash@3
                 displayName: 'Copy auth file'
                 inputs:
-                    filePath: '$(Build.SourcesDirectory)/dictionary/templates/azure/scripts/copyFile.sh'
+                    filePath: '$(Build.SourcesDirectory)/templates/azure/scripts/copyFile.sh'
             -   task: DockerCompose@0
                 inputs:
                     containerregistrytype: 'Container Registry'
