@@ -26,14 +26,20 @@ variables:
     GOPATH: '$(Pipeline.Workspace)/gowork'
 
 stages:
-    -   stage: Build
-        jobs:
-            -   template: templates/azure/jobs/build.yml   # Linux Build
-                parameters:
-                    name: 'Linux_Build'
-                    pool:
-                        vmImage: 'ubuntu-18.04'
+#    -   stage: Build
+#        jobs:
+#            -   template: templates/azure/jobs/build.yml   # Linux Build
+#                parameters:
+#                    name: 'Linux_Build'
+#                    pool:
+#                        vmImage: 'ubuntu-18.04'
+#
+#    -   stage: Test
+#        jobs:
+#            -   template: templates/azure/jobs/test.yml
 
-    -   stage: Test
+    -   stage: Deploy
         jobs:
-            -   template: templates/azure/jobs/test.yml
+            -   template: templates/azure/jobs/deploy.yml
+                parameters:
+                    name: 'Google Cloud deploy'

@@ -1,0 +1,24 @@
+parameters:
+    name: ''
+
+jobs:
+    -   job: ${{ parameters.name }}
+        displayName: "Deploy to dev: ${{ join(' ', parameters.images) }}"
+        steps:
+            -   task: DownloadSecureFile@1
+                displayName: 'Download gcloud deploy auth file'
+                name: deployauth
+                inputs:
+                    secureFile: 'sa-key-i.json'
+            -   task: Bash@3
+                displayName: 'Create image json details'
+                inputs:
+                    filePath: '$(Build.SourcesDirectory)/templates/azure/scripts/copyFile.sh'
+            -   task: DockerCompose@0
+                inputs:
+                    containerregistrytype: 'Container Registry'
+                    dockerRegistryEndpoint: 'GoogleContainerRegistry'
+                    dockerComposeFile: '$(Build.SourcesDirectory)/dictionary/docker-compose.yml'
+                    action: 'Run a specific service'
+                    serviceName: 'gcloud app deploy'
+                    detached: false
