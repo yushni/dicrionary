@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  description: "Just a dictionary for **\"Галицька\"** language."
+  description: "Just a dictionary for \"Галицька\" language."
   version: "1.0.0"
   title: "Dictionary"
 externalDocs:
@@ -9,34 +9,34 @@ externalDocs:
 host: "localhost"
 basePath: "/"
 tags:
-- name: "words"
+  - name: "words"
 schemes:
-- "http"
+  - "http"
 paths:
   /words:
     post:
       tags:
-      - "words"
+        - "words"
       summary: "Add a new word to the dictionary"
       operationId: "addWord"
       consumes:
-      - "application/json"
+        - "application/json"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - in: "body"
-        name: "body"
-        description: "Metadata of the word that have to be added to the dictionary"
-        required: true
-        schema:
-          $ref: "#/definitions/Word"
+        - in: "body"
+          name: "body"
+          description: "Metadata of the word that have to be added to the dictionary"
+          required: true
+          schema:
+            $ref: "#/definitions/Word"
       responses:
         "200":
           description: "Successful operation"
           schema:
             type: "object"
             required:
-            - "id"
+              - "id"
             properties:
               id:
                 type: "integer"
@@ -51,10 +51,10 @@ paths:
             $ref: "#/definitions/Error500"
     get:
       tags:
-      - "words"
+        - "words"
       summary: "Get all words"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
         - name: "limit"
           in: "query"
@@ -74,7 +74,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/WordWithId"
+              $ref: "#/definitions/Word"
         "400":
           description: "Invalid input"
           schema:
@@ -83,26 +83,26 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/Error500"
-          
+
   /words/{wordId}:
     get:
       tags:
-      - "words"
+        - "words"
       summary: "Get word by ID"
       operationId: "getWord"
       produces:
-      - "application.json"
+        - "application.json"
       parameters:
-      - name: "wordId"
-        in: "path"
-        required: true
-        type: "integer"
-        format: "int64"
+        - name: "wordId"
+          in: "path"
+          required: true
+          type: "integer"
+          format: "int64"
       responses:
         "200":
           description: "successful operation"
           schema:
-            $ref: "#/definitions/WordWithId"
+            $ref: "#/definitions/Word"
         "400":
           description: "Invalid Word ID"
           schema:
@@ -115,18 +115,18 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/Error500"
-    
+
     delete:
       tags:
-      - "words"
+        - "words"
       summary: "Delete a word"
       operationId: "deleteWord"
       parameters:
-      - name: "wordId"
-        in: "path"
-        required: true
-        type: "integer"
-        format: "int64"
+        - name: "wordId"
+          in: "path"
+          required: true
+          type: "integer"
+          format: "int64"
       responses:
         "400":
           description: "Invalid Word ID"
@@ -140,58 +140,35 @@ paths:
           description: "Internal Server Error"
           schema:
             $ref: "#/definitions/Error500"
-          
+
 definitions:
   Translation:
     type: "object"
     required:
-    - "translation"
-    - "transcription"
+      - "translation"
+      - "transcription"
     properties:
-      translation: 
+      translation:
         type: "string"
       transcription:
         type: "string"
   Word:
     type: "object"
     required:
-    - "word"
-    - "transcription"
-    - "translations"
-    - "origin"
-    - "samples"
-    properties:
-      word:
-        type: "string"
-      transcription:
-        type: "string"
-      translations:
-        type: "array"
-        items:
-          $ref: "#/definitions/Translation"
-      origin:
-        type: "string"
-      samples:
-        type: "array"
-        items:
-          type: "string"
-  WordWithId:
-    type: "object"
-    required:
-    - "id"
-    - "word"
-    - "transcription"
-    - "translations"
-    - "origin"
-    - "samples"
+      - "word"
+      - "transcription"
+      - "translations"
+      - "origin"
+      - "samples"
     properties:
       id:
         type: "integer"
         format: "int64"
+        readOnly: true
       word:
         type: "string"
       transcription:
-        type: "string"      
+        type: "string"
       translations:
         type: "array"
         items:
@@ -205,21 +182,21 @@ definitions:
   Error400:
     type: "object"
     required:
-    - "message"
+      - "message"
     properties:
       message:
         type: "string"
   Error404:
     type: "object"
     required:
-    - "message"
+      - "message"
     properties:
       message:
         type: "string"
   Error500:
     type: "object"
     required:
-    - "message"
+      - "message"
     properties:
       message:
         type: "string"
