@@ -16,7 +16,7 @@ import (
 
 // GetWordURL generates an URL for the get word operation
 type GetWordURL struct {
-	WordID int64
+	WordID uint64
 
 	_basePath string
 	// avoid unkeyed usage
@@ -44,7 +44,7 @@ func (o *GetWordURL) Build() (*url.URL, error) {
 
 	var _path = "/words/{wordId}"
 
-	wordID := swag.FormatInt64(o.WordID)
+	wordID := swag.FormatUint64(o.WordID)
 	if wordID != "" {
 		_path = strings.Replace(_path, "{wordId}", wordID, -1)
 	} else {

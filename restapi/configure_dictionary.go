@@ -4,7 +4,8 @@ package restapi
 
 import (
 	"crypto/tls"
-	"io"
+	"dictionary/models"
+	"github.com/go-openapi/swag"
 	"net/http"
 
 	"github.com/go-openapi/errors"
@@ -33,31 +34,39 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 
 	api.JSONConsumer = runtime.JSONConsumer()
 
-	api.ApplicationJSONProducer = runtime.ProducerFunc(func(w io.Writer, data interface{}) error {
-		return errors.NotImplemented("applicationJson producer has not yet been implemented")
-	})
 	api.JSONProducer = runtime.JSONProducer()
 
-	if api.WordsGetWordsHandler == nil {
-		api.WordsGetWordsHandler = words.GetWordsHandlerFunc(func(params words.GetWordsParams) middleware.Responder {
-			return middleware.NotImplemented("operation words.GetWords has not yet been implemented")
-		})
-	}
-	if api.WordsAddWordHandler == nil {
-		api.WordsAddWordHandler = words.AddWordHandlerFunc(func(params words.AddWordParams) middleware.Responder {
-			return middleware.NotImplemented("operation words.AddWord has not yet been implemented")
-		})
-	}
-	if api.WordsDeleteWordHandler == nil {
-		api.WordsDeleteWordHandler = words.DeleteWordHandlerFunc(func(params words.DeleteWordParams) middleware.Responder {
-			return middleware.NotImplemented("operation words.DeleteWord has not yet been implemented")
-		})
-	}
-	if api.WordsGetWordHandler == nil {
-		api.WordsGetWordHandler = words.GetWordHandlerFunc(func(params words.GetWordParams) middleware.Responder {
-			return middleware.NotImplemented("operation words.GetWord has not yet been implemented")
-		})
-	}
+	api.WordsAddWordHandler = words.AddWordHandlerFunc(func(params words.AddWordParams) middleware.Responder {
+		id := new(uint64)
+		*id = uint64(1)
+		return words.NewAddWordOK().WithPayload(&words.AddWordOKBody{ID: id})
+	})
+
+	api.WordsGetWordsHandler = words.GetWordsHandlerFunc(func(params words.GetWordsParams) middleware.Responder {
+		w := make([]*models.Word, *params.Limit)
+
+		return words.NewGetWordsOK().WithPayload(w)
+	})
+
+	api.WordsDeleteWordHandler = words.DeleteWordHandlerFunc(func(params words.DeleteWordParams) middleware.Responder {
+		id := new(uint64)
+		*id = params.WordID
+
+		return words.NewDeleteWordOK().WithPayload(&words.DeleteWordOKBody{ID: id})
+	})
+
+	api.WordsGetWordHandler = words.GetWordHandlerFunc(func(params words.GetWordParams) middleware.Responder {
+		w := models.Word{
+			ID:            params.WordID,
+			Origin:        swag.String("Угорщина"),
+			Samples:       make([]string, 2),
+			Transcription: swag.String("[с'ійо]"),
+			Translations:  make([]*models.Translation, 2),
+			Word:          swag.String("Сійо"),
+		}
+
+		return words.NewGetWordOK().WithPayload(&w)
+	})
 
 	api.PreServerShutdown = func() {}
 

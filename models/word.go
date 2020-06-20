@@ -21,7 +21,7 @@ type Word struct {
 
 	// id
 	// Read Only: true
-	ID int64 `json:"id,omitempty"`
+	ID uint64 `json:"id,omitempty"`
 
 	// origin
 	// Required: true

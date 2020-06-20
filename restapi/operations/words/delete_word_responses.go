@@ -13,6 +13,50 @@ import (
 	"dictionary/models"
 )
 
+// DeleteWordOKCode is the HTTP code returned for type DeleteWordOK
+const DeleteWordOKCode int = 200
+
+/*DeleteWordOK Successful deletion
+
+swagger:response deleteWordOK
+*/
+type DeleteWordOK struct {
+
+	/*
+	  In: Body
+	*/
+	Payload *DeleteWordOKBody `json:"body,omitempty"`
+}
+
+// NewDeleteWordOK creates DeleteWordOK with default headers values
+func NewDeleteWordOK() *DeleteWordOK {
+
+	return &DeleteWordOK{}
+}
+
+// WithPayload adds the payload to the delete word o k response
+func (o *DeleteWordOK) WithPayload(payload *DeleteWordOKBody) *DeleteWordOK {
+	o.Payload = payload
+	return o
+}
+
+// SetPayload sets the payload to the delete word o k response
+func (o *DeleteWordOK) SetPayload(payload *DeleteWordOKBody) {
+	o.Payload = payload
+}
+
+// WriteResponse to the client
+func (o *DeleteWordOK) WriteResponse(rw http.ResponseWriter, producer runtime.Producer) {
+
+	rw.WriteHeader(200)
+	if o.Payload != nil {
+		payload := o.Payload
+		if err := producer.Produce(rw, payload); err != nil {
+			panic(err) // let the recovery middleware deal with this
+		}
+	}
+}
+
 // DeleteWordBadRequestCode is the HTTP code returned for type DeleteWordBadRequest
 const DeleteWordBadRequestCode int = 400
 

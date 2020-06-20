@@ -34,7 +34,7 @@ type DeleteWordParams struct {
 	  Required: true
 	  In: path
 	*/
-	WordID int64
+	WordID uint64
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -67,9 +67,9 @@ func (o *DeleteWordParams) bindWordID(rawData []string, hasKey bool, formats str
 	// Required: true
 	// Parameter is provided by construction from the route
 
-	value, err := swag.ConvertInt64(raw)
+	value, err := swag.ConvertUint64(raw)
 	if err != nil {
-		return errors.InvalidType("wordId", "path", "int64", raw)
+		return errors.InvalidType("wordId", "path", "uint64", raw)
 	}
 	o.WordID = value
 

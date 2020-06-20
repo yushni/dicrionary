@@ -8,7 +8,11 @@ package words
 import (
 	"net/http"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime/middleware"
+	"github.com/go-openapi/strfmt"
+	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // DeleteWordHandlerFunc turns a function with the right signature into a delete word handler
@@ -55,4 +59,55 @@ func (o *DeleteWord) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 
 	o.Context.Respond(rw, r, route.Produces, route, res)
 
+}
+
+// DeleteWordOKBody delete word o k body
+//
+// swagger:model DeleteWordOKBody
+type DeleteWordOKBody struct {
+
+	// id
+	// Required: true
+	ID *uint64 `json:"id"`
+}
+
+// Validate validates this delete word o k body
+func (o *DeleteWordOKBody) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := o.validateID(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (o *DeleteWordOKBody) validateID(formats strfmt.Registry) error {
+
+	if err := validate.Required("deleteWordOK"+"."+"id", "body", o.ID); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// MarshalBinary interface implementation
+func (o *DeleteWordOKBody) MarshalBinary() ([]byte, error) {
+	if o == nil {
+		return nil, nil
+	}
+	return swag.WriteJSON(o)
+}
+
+// UnmarshalBinary interface implementation
+func (o *DeleteWordOKBody) UnmarshalBinary(b []byte) error {
+	var res DeleteWordOKBody
+	if err := swag.ReadJSON(b, &res); err != nil {
+		return err
+	}
+	*o = res
+	return nil
 }

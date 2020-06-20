@@ -15,8 +15,8 @@ import (
 
 // GetWordsURL generates an URL for the get words operation
 type GetWordsURL struct {
-	Limit  *int64
-	Offset *int64
+	Limit  *uint64
+	Offset *uint64
 
 	_basePath string
 	// avoid unkeyed usage
@@ -54,7 +54,7 @@ func (o *GetWordsURL) Build() (*url.URL, error) {
 
 	var limitQ string
 	if o.Limit != nil {
-		limitQ = swag.FormatInt64(*o.Limit)
+		limitQ = swag.FormatUint64(*o.Limit)
 	}
 	if limitQ != "" {
 		qs.Set("limit", limitQ)
@@ -62,7 +62,7 @@ func (o *GetWordsURL) Build() (*url.URL, error) {
 
 	var offsetQ string
 	if o.Offset != nil {
-		offsetQ = swag.FormatInt64(*o.Offset)
+		offsetQ = swag.FormatUint64(*o.Offset)
 	}
 	if offsetQ != "" {
 		qs.Set("offset", offsetQ)

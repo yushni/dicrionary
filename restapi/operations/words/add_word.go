@@ -68,7 +68,7 @@ type AddWordOKBody struct {
 
 	// id
 	// Required: true
-	ID *int64 `json:"id"`
+	ID *uint64 `json:"id"`
 }
 
 // Validate validates this add word o k body

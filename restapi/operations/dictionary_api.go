@@ -7,7 +7,6 @@ package operations
 
 import (
 	"fmt"
-	"io"
 	"net/http"
 	"strings"
 
@@ -42,9 +41,6 @@ func NewDictionaryAPI(spec *loads.Document) *DictionaryAPI {
 
 		JSONConsumer: runtime.JSONConsumer(),
 
-		ApplicationJSONProducer: runtime.ProducerFunc(func(w io.Writer, data interface{}) error {
-			return errors.NotImplemented("applicationJson producer has not yet been implemented")
-		}),
 		JSONProducer: runtime.JSONProducer(),
 
 		WordsGetWordsHandler: words.GetWordsHandlerFunc(func(params words.GetWordsParams) middleware.Responder {
@@ -88,9 +84,6 @@ type DictionaryAPI struct {
 	//   - application/json
 	JSONConsumer runtime.Consumer
 
-	// ApplicationJSONProducer registers a producer for the following mime types:
-	//   - application.json
-	ApplicationJSONProducer runtime.Producer
 	// JSONProducer registers a producer for the following mime types:
 	//   - application/json
 	JSONProducer runtime.Producer
@@ -165,9 +158,6 @@ func (o *DictionaryAPI) Validate() error {
 		unregistered = append(unregistered, "JSONConsumer")
 	}
 
-	if o.ApplicationJSONProducer == nil {
-		unregistered = append(unregistered, "ApplicationJSONProducer")
-	}
 	if o.JSONProducer == nil {
 		unregistered = append(unregistered, "JSONProducer")
 	}
@@ -230,8 +220,6 @@ func (o *DictionaryAPI) ProducersFor(mediaTypes []string) map[string]runtime.Pro
 	result := make(map[string]runtime.Producer, len(mediaTypes))
 	for _, mt := range mediaTypes {
 		switch mt {
-		case "application.json":
-			result["application.json"] = o.ApplicationJSONProducer
 		case "application/json":
 			result["application/json"] = o.JSONProducer
 		}
@@ -278,6 +266,7 @@ func (o *DictionaryAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/words"] = words.NewGetWords(o.context, o.WordsGetWordsHandler)
+	o.handlers["GET"]["/words/{wordId}"] = words.NewGetWord(o.context, o.WordsGetWordHandler)
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
@@ -286,10 +275,6 @@ func (o *DictionaryAPI) initHandlerCache() {
 		o.handlers["DELETE"] = make(map[string]http.Handler)
 	}
 	o.handlers["DELETE"]["/words/{wordId}"] = words.NewDeleteWord(o.context, o.WordsDeleteWordHandler)
-	if o.handlers["GET"] == nil {
-		o.handlers["GET"] = make(map[string]http.Handler)
-	}
-	o.handlers["GET"]["/words/{wordId}"] = words.NewGetWord(o.context, o.WordsGetWordHandler)
 }
 
 // Serve creates a http handler to serve the API over HTTP

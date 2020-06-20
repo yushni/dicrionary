@@ -22,8 +22,8 @@ func NewGetWordsParams() GetWordsParams {
 	var (
 		// initialize parameters with default values
 
-		limitDefault  = int64(20)
-		offsetDefault = int64(1)
+		limitDefault  = uint64(20)
+		offsetDefault = uint64(1)
 	)
 
 	return GetWordsParams{
@@ -46,12 +46,12 @@ type GetWordsParams struct {
 	  In: query
 	  Default: 20
 	*/
-	Limit *int64
+	Limit *uint64
 	/*
 	  In: query
 	  Default: 1
 	*/
-	Offset *int64
+	Offset *uint64
 }
 
 // BindRequest both binds and validates a request, it assumes that complex things implement a Validatable(strfmt.Registry) error interface
@@ -95,9 +95,9 @@ func (o *GetWordsParams) bindLimit(rawData []string, hasKey bool, formats strfmt
 		return nil
 	}
 
-	value, err := swag.ConvertInt64(raw)
+	value, err := swag.ConvertUint64(raw)
 	if err != nil {
-		return errors.InvalidType("limit", "query", "int64", raw)
+		return errors.InvalidType("limit", "query", "uint64", raw)
 	}
 	o.Limit = &value
 
@@ -118,9 +118,9 @@ func (o *GetWordsParams) bindOffset(rawData []string, hasKey bool, formats strfm
 		return nil
 	}
 
-	value, err := swag.ConvertInt64(raw)
+	value, err := swag.ConvertUint64(raw)
 	if err != nil {
-		return errors.InvalidType("offset", "query", "int64", raw)
+		return errors.InvalidType("offset", "query", "uint64", raw)
 	}
 	o.Offset = &value
 

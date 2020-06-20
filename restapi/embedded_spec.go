@@ -42,14 +42,14 @@ func init() {
         "parameters": [
           {
             "type": "integer",
-            "format": "int64",
+            "format": "uint64",
             "default": 20,
             "name": "limit",
             "in": "query"
           },
           {
             "type": "integer",
-            "format": "int64",
+            "format": "uint64",
             "default": 1,
             "name": "offset",
             "in": "query"
@@ -113,7 +113,7 @@ func init() {
               "properties": {
                 "id": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "uint64"
                 }
               }
             }
@@ -136,7 +136,7 @@ func init() {
     "/words/{wordId}": {
       "get": {
         "produces": [
-          "application.json"
+          "application/json"
         ],
         "tags": [
           "words"
@@ -146,7 +146,7 @@ func init() {
         "parameters": [
           {
             "type": "integer",
-            "format": "int64",
+            "format": "uint64",
             "name": "wordId",
             "in": "path",
             "required": true
@@ -188,13 +188,28 @@ func init() {
         "parameters": [
           {
             "type": "integer",
-            "format": "int64",
+            "format": "uint64",
             "name": "wordId",
             "in": "path",
             "required": true
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful deletion",
+            "schema": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "format": "uint64"
+                }
+              }
+            }
+          },
           "400": {
             "description": "Invalid Word ID",
             "schema": {
@@ -278,7 +293,7 @@ func init() {
       "properties": {
         "id": {
           "type": "integer",
-          "format": "int64",
+          "format": "uint64",
           "readOnly": true
         },
         "origin": {
@@ -340,14 +355,14 @@ func init() {
         "parameters": [
           {
             "type": "integer",
-            "format": "int64",
+            "format": "uint64",
             "default": 20,
             "name": "limit",
             "in": "query"
           },
           {
             "type": "integer",
-            "format": "int64",
+            "format": "uint64",
             "default": 1,
             "name": "offset",
             "in": "query"
@@ -411,7 +426,7 @@ func init() {
               "properties": {
                 "id": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "uint64"
                 }
               }
             }
@@ -434,7 +449,7 @@ func init() {
     "/words/{wordId}": {
       "get": {
         "produces": [
-          "application.json"
+          "application/json"
         ],
         "tags": [
           "words"
@@ -444,7 +459,7 @@ func init() {
         "parameters": [
           {
             "type": "integer",
-            "format": "int64",
+            "format": "uint64",
             "name": "wordId",
             "in": "path",
             "required": true
@@ -486,13 +501,28 @@ func init() {
         "parameters": [
           {
             "type": "integer",
-            "format": "int64",
+            "format": "uint64",
             "name": "wordId",
             "in": "path",
             "required": true
           }
         ],
         "responses": {
+          "200": {
+            "description": "Successful deletion",
+            "schema": {
+              "type": "object",
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "integer",
+                  "format": "uint64"
+                }
+              }
+            }
+          },
           "400": {
             "description": "Invalid Word ID",
             "schema": {
@@ -576,7 +606,7 @@ func init() {
       "properties": {
         "id": {
           "type": "integer",
-          "format": "int64",
+          "format": "uint64",
           "readOnly": true
         },
         "origin": {

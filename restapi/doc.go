@@ -13,7 +13,6 @@
 //    - application/json
 //
 //  Produces:
-//    - application.json
 //    - application/json
 //
 // swagger:meta
