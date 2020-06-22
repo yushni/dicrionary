@@ -37,31 +37,51 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 	api.JSONProducer = runtime.JSONProducer()
 
 	api.WordsAddWordHandler = words.AddWordHandlerFunc(func(params words.AddWordParams) middleware.Responder {
-		id := new(uint64)
-		*id = uint64(1)
-		return words.NewAddWordOK().WithPayload(&words.AddWordOKBody{ID: id})
+		return words.NewAddWordOK().WithPayload(&words.AddWordOKBody{ID: swag.Uint64(1)})
 	})
 
 	api.WordsGetWordsHandler = words.GetWordsHandlerFunc(func(params words.GetWordsParams) middleware.Responder {
 		w := make([]*models.Word, *params.Limit)
 
+		for i := range w {
+			w[i] = &models.Word{
+				ID:            uint64(i),
+				Origin:        swag.String("Польща"),
+				Samples:       []string{"Канапка дуже смачна.", "Канапка не дуже смачна."},
+				Transcription: swag.String("канапка"),
+				Translations:  []*models.Translation{
+					&models.Translation{
+						Transcription: swag.String("бутерброд"),
+						Translation:   swag.String("Бутерброд"),
+					},
+				},
+				Word:          swag.String("Канапка"),
+			}
+		}
+
 		return words.NewGetWordsOK().WithPayload(w)
 	})
 
 	api.WordsDeleteWordHandler = words.DeleteWordHandlerFunc(func(params words.DeleteWordParams) middleware.Responder {
-		id := new(uint64)
-		*id = params.WordID
-
-		return words.NewDeleteWordOK().WithPayload(&words.DeleteWordOKBody{ID: id})
+		return words.NewDeleteWordOK().WithPayload(&words.DeleteWordOKBody{ID: &params.WordID})
 	})
 
 	api.WordsGetWordHandler = words.GetWordHandlerFunc(func(params words.GetWordParams) middleware.Responder {
 		w := models.Word{
 			ID:            params.WordID,
 			Origin:        swag.String("Угорщина"),
-			Samples:       make([]string, 2),
+			Samples:       []string{"Сійо старий.", "Сійо, до завтра."},
 			Transcription: swag.String("[с'ійо]"),
-			Translations:  make([]*models.Translation, 2),
+			Translations:  []*models.Translation{
+				&models.Translation{
+					Transcription: swag.String("прив'іт"),
+					Translation:   swag.String("Привіт"),
+				},
+				&models.Translation{
+					Transcription: swag.String("пока"),
+					Translation:   swag.String("Пока"),
+				},
+			},
 			Word:          swag.String("Сійо"),
 		}
 

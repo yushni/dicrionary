@@ -69,7 +69,7 @@ type DeleteWordBadRequest struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.Error400 `json:"body,omitempty"`
+	Payload *models.ErrorBadRequest `json:"body,omitempty"`
 }
 
 // NewDeleteWordBadRequest creates DeleteWordBadRequest with default headers values
@@ -79,13 +79,13 @@ func NewDeleteWordBadRequest() *DeleteWordBadRequest {
 }
 
 // WithPayload adds the payload to the delete word bad request response
-func (o *DeleteWordBadRequest) WithPayload(payload *models.Error400) *DeleteWordBadRequest {
+func (o *DeleteWordBadRequest) WithPayload(payload *models.ErrorBadRequest) *DeleteWordBadRequest {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the delete word bad request response
-func (o *DeleteWordBadRequest) SetPayload(payload *models.Error400) {
+func (o *DeleteWordBadRequest) SetPayload(payload *models.ErrorBadRequest) {
 	o.Payload = payload
 }
 
@@ -113,7 +113,7 @@ type DeleteWordNotFound struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.Error404 `json:"body,omitempty"`
+	Payload *models.ErrorNotFound `json:"body,omitempty"`
 }
 
 // NewDeleteWordNotFound creates DeleteWordNotFound with default headers values
@@ -123,13 +123,13 @@ func NewDeleteWordNotFound() *DeleteWordNotFound {
 }
 
 // WithPayload adds the payload to the delete word not found response
-func (o *DeleteWordNotFound) WithPayload(payload *models.Error404) *DeleteWordNotFound {
+func (o *DeleteWordNotFound) WithPayload(payload *models.ErrorNotFound) *DeleteWordNotFound {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the delete word not found response
-func (o *DeleteWordNotFound) SetPayload(payload *models.Error404) {
+func (o *DeleteWordNotFound) SetPayload(payload *models.ErrorNotFound) {
 	o.Payload = payload
 }
 
@@ -157,7 +157,7 @@ type DeleteWordInternalServerError struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.Error500 `json:"body,omitempty"`
+	Payload *models.ErrorgInternalError `json:"body,omitempty"`
 }
 
 // NewDeleteWordInternalServerError creates DeleteWordInternalServerError with default headers values
@@ -167,13 +167,13 @@ func NewDeleteWordInternalServerError() *DeleteWordInternalServerError {
 }
 
 // WithPayload adds the payload to the delete word internal server error response
-func (o *DeleteWordInternalServerError) WithPayload(payload *models.Error500) *DeleteWordInternalServerError {
+func (o *DeleteWordInternalServerError) WithPayload(payload *models.ErrorgInternalError) *DeleteWordInternalServerError {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the delete word internal server error response
-func (o *DeleteWordInternalServerError) SetPayload(payload *models.Error500) {
+func (o *DeleteWordInternalServerError) SetPayload(payload *models.ErrorgInternalError) {
 	o.Payload = payload
 }
 

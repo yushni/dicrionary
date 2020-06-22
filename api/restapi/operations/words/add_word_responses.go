@@ -69,7 +69,7 @@ type AddWordBadRequest struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.Error400 `json:"body,omitempty"`
+	Payload *models.ErrorBadRequest `json:"body,omitempty"`
 }
 
 // NewAddWordBadRequest creates AddWordBadRequest with default headers values
@@ -79,13 +79,13 @@ func NewAddWordBadRequest() *AddWordBadRequest {
 }
 
 // WithPayload adds the payload to the add word bad request response
-func (o *AddWordBadRequest) WithPayload(payload *models.Error400) *AddWordBadRequest {
+func (o *AddWordBadRequest) WithPayload(payload *models.ErrorBadRequest) *AddWordBadRequest {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the add word bad request response
-func (o *AddWordBadRequest) SetPayload(payload *models.Error400) {
+func (o *AddWordBadRequest) SetPayload(payload *models.ErrorBadRequest) {
 	o.Payload = payload
 }
 
@@ -113,7 +113,7 @@ type AddWordInternalServerError struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.Error500 `json:"body,omitempty"`
+	Payload *models.ErrorgInternalError `json:"body,omitempty"`
 }
 
 // NewAddWordInternalServerError creates AddWordInternalServerError with default headers values
@@ -123,13 +123,13 @@ func NewAddWordInternalServerError() *AddWordInternalServerError {
 }
 
 // WithPayload adds the payload to the add word internal server error response
-func (o *AddWordInternalServerError) WithPayload(payload *models.Error500) *AddWordInternalServerError {
+func (o *AddWordInternalServerError) WithPayload(payload *models.ErrorgInternalError) *AddWordInternalServerError {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the add word internal server error response
-func (o *AddWordInternalServerError) SetPayload(payload *models.Error500) {
+func (o *AddWordInternalServerError) SetPayload(payload *models.ErrorgInternalError) {
 	o.Payload = payload
 }
 

@@ -69,7 +69,7 @@ type GetWordBadRequest struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.Error400 `json:"body,omitempty"`
+	Payload *models.ErrorBadRequest `json:"body,omitempty"`
 }
 
 // NewGetWordBadRequest creates GetWordBadRequest with default headers values
@@ -79,13 +79,13 @@ func NewGetWordBadRequest() *GetWordBadRequest {
 }
 
 // WithPayload adds the payload to the get word bad request response
-func (o *GetWordBadRequest) WithPayload(payload *models.Error400) *GetWordBadRequest {
+func (o *GetWordBadRequest) WithPayload(payload *models.ErrorBadRequest) *GetWordBadRequest {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the get word bad request response
-func (o *GetWordBadRequest) SetPayload(payload *models.Error400) {
+func (o *GetWordBadRequest) SetPayload(payload *models.ErrorBadRequest) {
 	o.Payload = payload
 }
 
@@ -113,7 +113,7 @@ type GetWordNotFound struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.Error404 `json:"body,omitempty"`
+	Payload *models.ErrorNotFound `json:"body,omitempty"`
 }
 
 // NewGetWordNotFound creates GetWordNotFound with default headers values
@@ -123,13 +123,13 @@ func NewGetWordNotFound() *GetWordNotFound {
 }
 
 // WithPayload adds the payload to the get word not found response
-func (o *GetWordNotFound) WithPayload(payload *models.Error404) *GetWordNotFound {
+func (o *GetWordNotFound) WithPayload(payload *models.ErrorNotFound) *GetWordNotFound {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the get word not found response
-func (o *GetWordNotFound) SetPayload(payload *models.Error404) {
+func (o *GetWordNotFound) SetPayload(payload *models.ErrorNotFound) {
 	o.Payload = payload
 }
 
@@ -157,7 +157,7 @@ type GetWordInternalServerError struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.Error500 `json:"body,omitempty"`
+	Payload *models.ErrorgInternalError `json:"body,omitempty"`
 }
 
 // NewGetWordInternalServerError creates GetWordInternalServerError with default headers values
@@ -167,13 +167,13 @@ func NewGetWordInternalServerError() *GetWordInternalServerError {
 }
 
 // WithPayload adds the payload to the get word internal server error response
-func (o *GetWordInternalServerError) WithPayload(payload *models.Error500) *GetWordInternalServerError {
+func (o *GetWordInternalServerError) WithPayload(payload *models.ErrorgInternalError) *GetWordInternalServerError {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the get word internal server error response
-func (o *GetWordInternalServerError) SetPayload(payload *models.Error500) {
+func (o *GetWordInternalServerError) SetPayload(payload *models.ErrorgInternalError) {
 	o.Payload = payload
 }
 

@@ -68,13 +68,13 @@ func init() {
           "400": {
             "description": "Invalid input",
             "schema": {
-              "$ref": "#/definitions/Error400"
+              "$ref": "#/definitions/ErrorBadRequest"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/Error500"
+              "$ref": "#/definitions/ErrorgInternalError"
             }
           }
         }
@@ -121,13 +121,13 @@ func init() {
           "400": {
             "description": "Invalid input",
             "schema": {
-              "$ref": "#/definitions/Error400"
+              "$ref": "#/definitions/ErrorBadRequest"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/Error500"
+              "$ref": "#/definitions/ErrorgInternalError"
             }
           }
         }
@@ -162,19 +162,19 @@ func init() {
           "400": {
             "description": "Invalid Word ID",
             "schema": {
-              "$ref": "#/definitions/Error400"
+              "$ref": "#/definitions/ErrorBadRequest"
             }
           },
           "404": {
             "description": "Word not found",
             "schema": {
-              "$ref": "#/definitions/Error404"
+              "$ref": "#/definitions/ErrorNotFound"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/Error500"
+              "$ref": "#/definitions/ErrorgInternalError"
             }
           }
         }
@@ -213,19 +213,19 @@ func init() {
           "400": {
             "description": "Invalid Word ID",
             "schema": {
-              "$ref": "#/definitions/Error400"
+              "$ref": "#/definitions/ErrorBadRequest"
             }
           },
           "404": {
             "description": "Word not found",
             "schema": {
-              "$ref": "#/definitions/Error404"
+              "$ref": "#/definitions/ErrorNotFound"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/Error500"
+              "$ref": "#/definitions/ErrorgInternalError"
             }
           }
         }
@@ -233,7 +233,7 @@ func init() {
     }
   },
   "definitions": {
-    "Error400": {
+    "ErrorBadRequest": {
       "type": "object",
       "required": [
         "message"
@@ -244,7 +244,7 @@ func init() {
         }
       }
     },
-    "Error404": {
+    "ErrorNotFound": {
       "type": "object",
       "required": [
         "message"
@@ -255,7 +255,7 @@ func init() {
         }
       }
     },
-    "Error500": {
+    "ErrorgInternalError": {
       "type": "object",
       "required": [
         "message"
@@ -381,13 +381,13 @@ func init() {
           "400": {
             "description": "Invalid input",
             "schema": {
-              "$ref": "#/definitions/Error400"
+              "$ref": "#/definitions/ErrorBadRequest"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/Error500"
+              "$ref": "#/definitions/ErrorgInternalError"
             }
           }
         }
@@ -434,13 +434,13 @@ func init() {
           "400": {
             "description": "Invalid input",
             "schema": {
-              "$ref": "#/definitions/Error400"
+              "$ref": "#/definitions/ErrorBadRequest"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/Error500"
+              "$ref": "#/definitions/ErrorgInternalError"
             }
           }
         }
@@ -475,19 +475,19 @@ func init() {
           "400": {
             "description": "Invalid Word ID",
             "schema": {
-              "$ref": "#/definitions/Error400"
+              "$ref": "#/definitions/ErrorBadRequest"
             }
           },
           "404": {
             "description": "Word not found",
             "schema": {
-              "$ref": "#/definitions/Error404"
+              "$ref": "#/definitions/ErrorNotFound"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/Error500"
+              "$ref": "#/definitions/ErrorgInternalError"
             }
           }
         }
@@ -526,19 +526,19 @@ func init() {
           "400": {
             "description": "Invalid Word ID",
             "schema": {
-              "$ref": "#/definitions/Error400"
+              "$ref": "#/definitions/ErrorBadRequest"
             }
           },
           "404": {
             "description": "Word not found",
             "schema": {
-              "$ref": "#/definitions/Error404"
+              "$ref": "#/definitions/ErrorNotFound"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/Error500"
+              "$ref": "#/definitions/ErrorgInternalError"
             }
           }
         }
@@ -546,7 +546,7 @@ func init() {
     }
   },
   "definitions": {
-    "Error400": {
+    "ErrorBadRequest": {
       "type": "object",
       "required": [
         "message"
@@ -557,7 +557,7 @@ func init() {
         }
       }
     },
-    "Error404": {
+    "ErrorNotFound": {
       "type": "object",
       "required": [
         "message"
@@ -568,7 +568,7 @@ func init() {
         }
       }
     },
-    "Error500": {
+    "ErrorgInternalError": {
       "type": "object",
       "required": [
         "message"

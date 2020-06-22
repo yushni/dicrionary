@@ -12,18 +12,18 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Error400 error400
+// ErrorNotFound error not found
 //
-// swagger:model Error400
-type Error400 struct {
+// swagger:model ErrorNotFound
+type ErrorNotFound struct {
 
 	// message
 	// Required: true
 	Message *string `json:"message"`
 }
 
-// Validate validates this error400
-func (m *Error400) Validate(formats strfmt.Registry) error {
+// Validate validates this error not found
+func (m *ErrorNotFound) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateMessage(formats); err != nil {
@@ -36,7 +36,7 @@ func (m *Error400) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Error400) validateMessage(formats strfmt.Registry) error {
+func (m *ErrorNotFound) validateMessage(formats strfmt.Registry) error {
 
 	if err := validate.Required("message", "body", m.Message); err != nil {
 		return err
@@ -46,7 +46,7 @@ func (m *Error400) validateMessage(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *Error400) MarshalBinary() ([]byte, error) {
+func (m *ErrorNotFound) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -54,8 +54,8 @@ func (m *Error400) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *Error400) UnmarshalBinary(b []byte) error {
-	var res Error400
+func (m *ErrorNotFound) UnmarshalBinary(b []byte) error {
+	var res ErrorNotFound
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}

@@ -44,11 +44,11 @@ paths:
         "400":
           description: "Invalid input"
           schema:
-            $ref: "#/definitions/Error400"
+            $ref: "#/definitions/ErrorBadRequest"
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/Error500"
+            $ref: "#/definitions/ErrorgInternalError"
     get:
       tags:
         - "words"
@@ -78,11 +78,11 @@ paths:
         "400":
           description: "Invalid input"
           schema:
-            $ref: "#/definitions/Error400"
+            $ref: "#/definitions/ErrorBadRequest"
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/Error500"
+            $ref: "#/definitions/ErrorgInternalError"
 
   /words/{wordId}:
     get:
@@ -106,15 +106,15 @@ paths:
         "400":
           description: "Invalid Word ID"
           schema:
-            $ref: "#/definitions/Error400"
+            $ref: "#/definitions/ErrorBadRequest"
         "404":
           description: "Word not found"
           schema:
-            $ref: "#/definitions/Error404"
+            $ref: "#/definitions/ErrorNotFound"
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/Error500"
+            $ref: "#/definitions/ErrorgInternalError"
 
     delete:
       tags:
@@ -141,15 +141,15 @@ paths:
         "400":
           description: "Invalid Word ID"
           schema:
-            $ref: "#/definitions/Error400"
+            $ref: "#/definitions/ErrorBadRequest"
         "404":
           description: "Word not found"
           schema:
-            $ref: "#/definitions/Error404"
+            $ref: "#/definitions/ErrorNotFound"
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/Error500"
+            $ref: "#/definitions/ErrorgInternalError"
 
 definitions:
   Translation:
@@ -189,21 +189,21 @@ definitions:
         type: "array"
         items:
           type: "string"
-  Error400:
+  ErrorBadRequest:
     type: "object"
     required:
       - "message"
     properties:
       message:
         type: "string"
-  Error404:
+  ErrorNotFound:
     type: "object"
     required:
       - "message"
     properties:
       message:
         type: "string"
-  Error500:
+  ErrorgInternalError:
     type: "object"
     required:
       - "message"

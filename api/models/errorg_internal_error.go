@@ -12,18 +12,18 @@ import (
 	"github.com/go-openapi/validate"
 )
 
-// Error404 error404
+// ErrorgInternalError errorg internal error
 //
-// swagger:model Error404
-type Error404 struct {
+// swagger:model ErrorgInternalError
+type ErrorgInternalError struct {
 
 	// message
 	// Required: true
 	Message *string `json:"message"`
 }
 
-// Validate validates this error404
-func (m *Error404) Validate(formats strfmt.Registry) error {
+// Validate validates this errorg internal error
+func (m *ErrorgInternalError) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateMessage(formats); err != nil {
@@ -36,7 +36,7 @@ func (m *Error404) Validate(formats strfmt.Registry) error {
 	return nil
 }
 
-func (m *Error404) validateMessage(formats strfmt.Registry) error {
+func (m *ErrorgInternalError) validateMessage(formats strfmt.Registry) error {
 
 	if err := validate.Required("message", "body", m.Message); err != nil {
 		return err
@@ -46,7 +46,7 @@ func (m *Error404) validateMessage(formats strfmt.Registry) error {
 }
 
 // MarshalBinary interface implementation
-func (m *Error404) MarshalBinary() ([]byte, error) {
+func (m *ErrorgInternalError) MarshalBinary() ([]byte, error) {
 	if m == nil {
 		return nil, nil
 	}
@@ -54,8 +54,8 @@ func (m *Error404) MarshalBinary() ([]byte, error) {
 }
 
 // UnmarshalBinary interface implementation
-func (m *Error404) UnmarshalBinary(b []byte) error {
-	var res Error404
+func (m *ErrorgInternalError) UnmarshalBinary(b []byte) error {
+	var res ErrorgInternalError
 	if err := swag.ReadJSON(b, &res); err != nil {
 		return err
 	}
