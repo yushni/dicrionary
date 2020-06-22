@@ -6,8 +6,8 @@ import (
 	"log"
 	"os"
 
-	"dictionary/restapi"
-	"dictionary/restapi/operations"
+	"dictionary/api/restapi"
+	"dictionary/api/restapi/operations"
 
 	"github.com/go-openapi/loads"
 	flags "github.com/jessevdk/go-flags"

@@ -4,7 +4,7 @@ package restapi
 
 import (
 	"crypto/tls"
-	"dictionary/models"
+	"dictionary/api/models"
 	"github.com/go-openapi/swag"
 	"net/http"
 
@@ -12,8 +12,8 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	"dictionary/restapi/operations"
-	"dictionary/restapi/operations/words"
+	"dictionary/api/restapi/operations"
+	"dictionary/api/restapi/operations/words"
 )
 
 //go:generate swagger generate server --target ..\..\dictionary --name Dictionary --spec ..\api\swagger.yaml

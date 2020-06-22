@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-openapi/runtime"
 
-	"dictionary/models"
+	"dictionary/api/models"
 )
 
 // GetWordsOKCode is the HTTP code returned for type GetWordsOK

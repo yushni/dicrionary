@@ -19,7 +19,7 @@ import (
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"dictionary/restapi/operations/words"
+	"dictionary/api/restapi/operations/words"
 )
 
 // NewDictionaryAPI creates a new Dictionary instance
@@ -266,7 +266,6 @@ func (o *DictionaryAPI) initHandlerCache() {
 		o.handlers["GET"] = make(map[string]http.Handler)
 	}
 	o.handlers["GET"]["/words"] = words.NewGetWords(o.context, o.WordsGetWordsHandler)
-	o.handlers["GET"]["/words/{wordId}"] = words.NewGetWord(o.context, o.WordsGetWordHandler)
 	if o.handlers["POST"] == nil {
 		o.handlers["POST"] = make(map[string]http.Handler)
 	}
@@ -275,6 +274,10 @@ func (o *DictionaryAPI) initHandlerCache() {
 		o.handlers["DELETE"] = make(map[string]http.Handler)
 	}
 	o.handlers["DELETE"]["/words/{wordId}"] = words.NewDeleteWord(o.context, o.WordsDeleteWordHandler)
+	if o.handlers["GET"] == nil {
+		o.handlers["GET"] = make(map[string]http.Handler)
+	}
+	o.handlers["GET"]["/words/{wordId}"] = words.NewGetWord(o.context, o.WordsGetWordHandler)
 }
 
 // Serve creates a http handler to serve the API over HTTP
