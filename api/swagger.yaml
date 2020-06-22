@@ -48,7 +48,7 @@ paths:
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/ErrorgInternalError"
+            $ref: "#/definitions/ErrorInternalError"
     get:
       tags:
         - "words"
@@ -82,7 +82,7 @@ paths:
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/ErrorgInternalError"
+            $ref: "#/definitions/ErrorInternalError"
 
   /words/{wordId}:
     get:
@@ -114,7 +114,7 @@ paths:
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/ErrorgInternalError"
+            $ref: "#/definitions/ErrorInternalError"
 
     delete:
       tags:
@@ -149,7 +149,7 @@ paths:
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/ErrorgInternalError"
+            $ref: "#/definitions/ErrorInternalError"
 
 definitions:
   Translation:
@@ -203,7 +203,7 @@ definitions:
     properties:
       message:
         type: "string"
-  ErrorgInternalError:
+  ErrorInternalError:
     type: "object"
     required:
       - "message"

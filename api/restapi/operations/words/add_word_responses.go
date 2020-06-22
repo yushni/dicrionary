@@ -113,7 +113,7 @@ type AddWordInternalServerError struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.ErrorgInternalError `json:"body,omitempty"`
+	Payload *models.ErrorInternalError `json:"body,omitempty"`
 }
 
 // NewAddWordInternalServerError creates AddWordInternalServerError with default headers values
@@ -123,13 +123,13 @@ func NewAddWordInternalServerError() *AddWordInternalServerError {
 }
 
 // WithPayload adds the payload to the add word internal server error response
-func (o *AddWordInternalServerError) WithPayload(payload *models.ErrorgInternalError) *AddWordInternalServerError {
+func (o *AddWordInternalServerError) WithPayload(payload *models.ErrorInternalError) *AddWordInternalServerError {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the add word internal server error response
-func (o *AddWordInternalServerError) SetPayload(payload *models.ErrorgInternalError) {
+func (o *AddWordInternalServerError) SetPayload(payload *models.ErrorInternalError) {
 	o.Payload = payload
 }
 

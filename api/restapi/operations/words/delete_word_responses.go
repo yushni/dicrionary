@@ -157,7 +157,7 @@ type DeleteWordInternalServerError struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.ErrorgInternalError `json:"body,omitempty"`
+	Payload *models.ErrorInternalError `json:"body,omitempty"`
 }
 
 // NewDeleteWordInternalServerError creates DeleteWordInternalServerError with default headers values
@@ -167,13 +167,13 @@ func NewDeleteWordInternalServerError() *DeleteWordInternalServerError {
 }
 
 // WithPayload adds the payload to the delete word internal server error response
-func (o *DeleteWordInternalServerError) WithPayload(payload *models.ErrorgInternalError) *DeleteWordInternalServerError {
+func (o *DeleteWordInternalServerError) WithPayload(payload *models.ErrorInternalError) *DeleteWordInternalServerError {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the delete word internal server error response
-func (o *DeleteWordInternalServerError) SetPayload(payload *models.ErrorgInternalError) {
+func (o *DeleteWordInternalServerError) SetPayload(payload *models.ErrorInternalError) {
 	o.Payload = payload
 }
 

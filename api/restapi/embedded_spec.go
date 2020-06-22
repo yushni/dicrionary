@@ -74,7 +74,7 @@ func init() {
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorgInternalError"
+              "$ref": "#/definitions/ErrorInternalError"
             }
           }
         }
@@ -127,7 +127,7 @@ func init() {
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorgInternalError"
+              "$ref": "#/definitions/ErrorInternalError"
             }
           }
         }
@@ -174,7 +174,7 @@ func init() {
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorgInternalError"
+              "$ref": "#/definitions/ErrorInternalError"
             }
           }
         }
@@ -225,7 +225,7 @@ func init() {
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorgInternalError"
+              "$ref": "#/definitions/ErrorInternalError"
             }
           }
         }
@@ -244,7 +244,7 @@ func init() {
         }
       }
     },
-    "ErrorNotFound": {
+    "ErrorInternalError": {
       "type": "object",
       "required": [
         "message"
@@ -255,7 +255,7 @@ func init() {
         }
       }
     },
-    "ErrorgInternalError": {
+    "ErrorNotFound": {
       "type": "object",
       "required": [
         "message"
@@ -387,7 +387,7 @@ func init() {
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorgInternalError"
+              "$ref": "#/definitions/ErrorInternalError"
             }
           }
         }
@@ -440,7 +440,7 @@ func init() {
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorgInternalError"
+              "$ref": "#/definitions/ErrorInternalError"
             }
           }
         }
@@ -487,7 +487,7 @@ func init() {
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorgInternalError"
+              "$ref": "#/definitions/ErrorInternalError"
             }
           }
         }
@@ -538,7 +538,7 @@ func init() {
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorgInternalError"
+              "$ref": "#/definitions/ErrorInternalError"
             }
           }
         }
@@ -557,7 +557,7 @@ func init() {
         }
       }
     },
-    "ErrorNotFound": {
+    "ErrorInternalError": {
       "type": "object",
       "required": [
         "message"
@@ -568,7 +568,7 @@ func init() {
         }
       }
     },
-    "ErrorgInternalError": {
+    "ErrorNotFound": {
       "type": "object",
       "required": [
         "message"
