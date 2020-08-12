@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS samples;
+
+DROP TABLE IF EXISTS translations;
+
+DROP TABLE IF EXISTS words;
+
+DROP TABLE IF EXISTS users;
