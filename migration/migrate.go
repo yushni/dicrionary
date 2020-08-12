@@ -25,7 +25,7 @@ func RunMigrate(upOrDown string) error {
 	default:
 		return errors.New("unspecified weather upgrade or downgrade migration version")
 	}
-	if err != nil {
+	if err != nil && err != migrate.ErrNoChange {
 		return err
 	}
 
