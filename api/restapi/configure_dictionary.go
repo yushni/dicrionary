@@ -5,7 +5,7 @@ package restapi
 import (
 	"crypto/tls"
 	"dictionary/api/models"
-	"dictionary/migrate"
+	"dictionary/migration"
 	"github.com/go-openapi/swag"
 	"log"
 	"net/http"
@@ -90,7 +90,7 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 		return words.NewGetWordOK().WithPayload(&w)
 	})
 
-	if err := migrate.RunMigrate("up"); err != nil {
+	if err := migration.RunMigrate("up"); err != nil {
 		log.Fatalln(err)
 	}
 
