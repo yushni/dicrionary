@@ -5,7 +5,9 @@ package restapi
 import (
 	"crypto/tls"
 	"dictionary/api/models"
+	"dictionary/migrate"
 	"github.com/go-openapi/swag"
+	"log"
 	"net/http"
 
 	"github.com/go-openapi/errors"
@@ -49,13 +51,13 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 				Origin:        swag.String("Польща"),
 				Samples:       []string{"Канапка дуже смачна.", "Канапка не дуже смачна."},
 				Transcription: swag.String("канапка"),
-				Translations:  []*models.Translation{
+				Translations: []*models.Translation{
 					&models.Translation{
 						Transcription: swag.String("бутерброд"),
 						Translation:   swag.String("Бутерброд"),
 					},
 				},
-				Word:          swag.String("Канапка"),
+				Word: swag.String("Канапка"),
 			}
 		}
 
@@ -72,7 +74,7 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 			Origin:        swag.String("Угорщина"),
 			Samples:       []string{"Сійо старий.", "Сійо, до завтра."},
 			Transcription: swag.String("[с'ійо]"),
-			Translations:  []*models.Translation{
+			Translations: []*models.Translation{
 				&models.Translation{
 					Transcription: swag.String("прив'іт"),
 					Translation:   swag.String("Привіт"),
@@ -82,11 +84,15 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 					Translation:   swag.String("Пока"),
 				},
 			},
-			Word:          swag.String("Сійо"),
+			Word: swag.String("Сійо"),
 		}
 
 		return words.NewGetWordOK().WithPayload(&w)
 	})
+
+	if err := migrate.RunMigrate("up"); err != nil {
+		log.Fatalln(err)
+	}
 
 	api.PreServerShutdown = func() {}
 
