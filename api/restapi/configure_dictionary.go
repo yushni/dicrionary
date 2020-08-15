@@ -90,7 +90,15 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 		return words.NewGetWordOK().WithPayload(&w)
 	})
 
-	if err := migration.RunMigrate("up"); err != nil {
+	m, err := migration.NewMigrate(
+		migration.WithUser("admin"),
+		migration.WithPassword("admin"),
+	)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	if err = m.Run(); err != nil {
 		log.Fatalln(err)
 	}
 
