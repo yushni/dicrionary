@@ -3,6 +3,7 @@ package migration
 import (
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
@@ -15,58 +16,77 @@ const (
 
 	// Down used to run all down migrations
 	Down
+
+	defaultPostgresPort = "5432"
 )
 
 var (
 	ErrNoCredentials = errors.New("migration: no database credentials specified")
-	ErrNoUpOrDown    = errors.New("unspecified whether upgrade or downgrade migration version")
+	ErrNoUpOrDown    = errors.New("migration: unspecified whether upgrade or downgrade migration version")
 )
 
-type MigrateOption func(*Migrate)
+type MigrateOption func(*Migrate) error
 
 func Downgrade() MigrateOption {
-	return func(m *Migrate) {
+	return func(m *Migrate) error {
 		m.direction = Down
+		return nil
 	}
 }
 
-func WithUser(username string) MigrateOption {
-	return func(m *Migrate) {
-		m.user = username
-	}
-}
+func WithConfig(config DBConfig) MigrateOption {
+	return func(m *Migrate) error {
+		var notPassed []string
 
-func WithPassword(password string) MigrateOption {
-	return func(m *Migrate) {
-		m.password = password
-	}
-}
+		if config.Host == "" {
+			notPassed = append(notPassed, "Host")
+		}
 
-func WithHost(host string) MigrateOption {
-	return func(m *Migrate) {
-		m.host = host
-	}
-}
+		if config.User == "" {
+			notPassed = append(notPassed, "User")
+		}
 
-func WithPort(port string) MigrateOption {
-	return func(m *Migrate) {
-		m.port = port
+		if len(notPassed) > 0 {
+			return fmt.Errorf("migration: missing fields: %s", strings.Join(notPassed, ", "))
+		}
+
+		if config.Port == "" {
+			// Set default Postgres port
+			config.Port = defaultPostgresPort
+		}
+
+		// Combine Host and Port values
+		m.address = fmt.Sprintf("%s:%s", config.Host, config.Port)
+
+		// Add User value to full user credentials
+		m.userCreds = config.User
+
+		// Check if Password is not empty
+		if config.Password != "" {
+			// if so then add it to full user credentials
+			m.userCreds += fmt.Sprintf(":%s", config.Password)
+		}
+
+		m.dbName = config.DBName
+
+		return nil
 	}
 }
 
 func NewMigrate(opts ...MigrateOption) (*Migrate, error) {
 	migration := &Migrate{
 		direction: Up,
-		dbName:    "dictionary",
-		host:      "localhost",
-		port:      "5432",
 	}
 
 	for _, opt := range opts {
-		opt(migration)
+		err := opt(migration)
+
+		if err != nil {
+			return nil, err
+		}
 	}
 
-	if migration.user == "" || migration.password == "" {
+	if migration.userCreds == "" {
 		return nil, ErrNoCredentials
 	}
 
@@ -74,14 +94,18 @@ func NewMigrate(opts ...MigrateOption) (*Migrate, error) {
 }
 
 type Migrate struct {
-	// Direction used to define whether run up or down migrations
+	// direction used to define whether run up or down migrations
 	direction int
 
-	host string
-	port string
+	// address is a combination of Host and Port fields
+	//
+	// Example: Host:Port
+	address string
 
-	user     string
-	password string
+	// userCreds is a combination of User and Password (if exists) fields
+	//
+	// Example: User[:Password]
+	userCreds string
 
 	dbName string
 }
@@ -89,7 +113,7 @@ type Migrate struct {
 func (o *Migrate) Run() error {
 	m, err := migrate.New(
 		"file://migration/migrations",
-		fmt.Sprintf("postgres://%s:%s@%s:%s/%s", o.user, o.password, o.host, o.port, o.dbName),
+		fmt.Sprintf("postgres://%s@%s/%s", o.userCreds, o.address, o.dbName),
 	)
 	if err != nil {
 		return err
