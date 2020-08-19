@@ -6,9 +6,10 @@ import (
 	"crypto/tls"
 	"dictionary/api/models"
 	"dictionary/migration"
-	"github.com/go-openapi/swag"
 	"log"
 	"net/http"
+
+	"github.com/go-openapi/swag"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
