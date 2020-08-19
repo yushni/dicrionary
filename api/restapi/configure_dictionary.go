@@ -91,9 +91,16 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 		return words.NewGetWordOK().WithPayload(&w)
 	})
 
+	dbConfig := migration.DBConfig{
+		Host:     "localhost",
+		Port:     "5432",
+		User:     "",
+		Password: "",
+		DBName:   "",
+	}
+
 	m, err := migration.NewMigrate(
-		migration.WithUser("admin"),
-		migration.WithPassword("admin"),
+		migration.WithConfig(dbConfig),
 	)
 	if err != nil {
 		log.Fatalln(err)
