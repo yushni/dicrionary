@@ -93,9 +93,9 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 	dbConfig := migration.NewDBConfig(
 		"localhost",
 		"dictionary",
-		"",
-		"",
+		"admin",
 	)
+	dbConfig.SetPassword("admin")
 
 	m, err := migration.NewMigrate(
 		dbConfig,
