@@ -3,8 +3,6 @@ package migration
 import (
 	"errors"
 	"fmt"
-	"strings"
-
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
@@ -21,73 +19,39 @@ const (
 )
 
 var (
-	ErrNoCredentials = errors.New("migration: no database credentials specified")
-	ErrNoUpOrDown    = errors.New("migration: unspecified whether upgrade or downgrade migration version")
+	ErrNoUpOrDown = errors.New("migration: unspecified whether upgrade or downgrade migration version")
 )
 
-type MigrateOption func(*Migrate) error
+type MigrateOption func(*Migrate)
 
+// Downgrade is used to run down migrations - roll back changes made to
+// database structure.
 func Downgrade() MigrateOption {
-	return func(m *Migrate) error {
+	return func(m *Migrate) {
 		m.direction = Down
-		return nil
 	}
 }
 
-func WithConfig(config DBConfig) MigrateOption {
-	return func(m *Migrate) error {
-		var notPassed []string
-
-		if config.Host == "" {
-			notPassed = append(notPassed, "Host")
-		}
-
-		if config.User == "" {
-			notPassed = append(notPassed, "User")
-		}
-
-		if len(notPassed) > 0 {
-			return fmt.Errorf("migration: missing fields: %s", strings.Join(notPassed, ", "))
-		}
-
-		if config.Port == "" {
-			// Set default Postgres port
-			config.Port = defaultPostgresPort
-		}
-
-		// Combine Host and Port values
-		m.address = fmt.Sprintf("%s:%s", config.Host, config.Port)
-
-		// Add User value to full user credentials
-		m.userCreds = config.User
-
-		// Check if Password is not empty
-		if config.Password != "" {
-			// if so then add it to full user credentials
-			m.userCreds += fmt.Sprintf(":%s", config.Password)
-		}
-
-		m.dbName = config.DBName
-
-		return nil
+// WithDirectory sets a path to directory where .sql migration files
+// are located.
+//
+// You should not start it with `file://` because it will
+// be added automatically.
+func WithDirectory(source string) MigrateOption {
+	return func(m *Migrate) {
+		m.source = source
 	}
 }
 
-func NewMigrate(opts ...MigrateOption) (*Migrate, error) {
+func NewMigrate(cfg DBConfig, opts ...MigrateOption) (*Migrate, error) {
 	migration := &Migrate{
 		direction: Up,
+		source:    "migration/migrations",
+		config:    cfg,
 	}
 
 	for _, opt := range opts {
-		err := opt(migration)
-
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	if migration.userCreds == "" {
-		return nil, ErrNoCredentials
+		opt(migration)
 	}
 
 	return migration, nil
@@ -97,23 +61,19 @@ type Migrate struct {
 	// direction used to define whether run up or down migrations
 	direction int
 
-	// address is a combination of Host and Port fields
+	// source is a path to folder with .sql migration files
+	// from root project directory.
 	//
-	// Example: Host:Port
-	address string
+	// 	Default: "migration/migrations"
+	source string
 
-	// userCreds is a combination of User and Password (if exists) fields
-	//
-	// Example: User[:Password]
-	userCreds string
-
-	dbName string
+	config DBConfig
 }
 
 func (o *Migrate) Run() error {
 	m, err := migrate.New(
-		"file://migration/migrations",
-		fmt.Sprintf("postgres://%s@%s/%s", o.userCreds, o.address, o.dbName),
+		fmt.Sprintf("file://%s", o.source),
+		fmt.Sprintf("postgres://%s@%s/%s", o.config.userCreds, o.config.address, o.config.dbName),
 	)
 	if err != nil {
 		return err
