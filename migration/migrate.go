@@ -74,7 +74,7 @@ type Migrate struct {
 func (o *Migrate) Run() error {
 	m, err := migrate.New(
 		fmt.Sprintf("file://%s", o.source),
-		fmt.Sprintf("postgres://%s@%s/%s", o.config.userCreds, o.config.address, o.config.dbName),
+		o.config.String(),
 	)
 	if err != nil {
 		return err

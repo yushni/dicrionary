@@ -47,3 +47,10 @@ func (c *DBConfig) SetPassword(password string) {
 
 	c.userCreds = fmt.Sprintf("%s:%s", username, password)
 }
+
+// String generates Postgres database connection URI.
+//
+//  Pattern: "postgres://username[:password]@host[:port]/dbname"
+func (c *DBConfig) String() string {
+	return fmt.Sprintf("postgres://%s@%s/%s", c.userCreds, c.address, c.dbName)
+}
