@@ -19,30 +19,31 @@ type DBConfig struct {
 	dbName string
 }
 
-// NewDBConfig returns DBConfig struct with properly formatted data you should
-// pass to this constructor.
-//
-// `password` is optional (pass it only if database user you are using has password)
-// and if you pass more than one optional argument, all of them will
-// be ignored except the first.
-func NewDBConfig(address, database, username string, password ...string) DBConfig {
+func NewDBConfig(host, database, username string) DBConfig {
 	cfg := DBConfig{}
 
-	// Check if pattern `host:port` has the `port` value
-	if len(strings.Split(address, ":")) > 1 {
-		cfg.address = address
-	} else {
-		// Combine ip address and default Postgres port
-		cfg.address = fmt.Sprintf("%s:%s", address, defaultPostgresPort)
-	}
+	// Combine ip address and default Postgres port
+	cfg.address = fmt.Sprintf("%s:%s", host, defaultPostgresPort)
 
-	if len(password) > 0 {
-		cfg.userCreds = fmt.Sprintf("%s:%s", username, password[0])
-	} else {
-		cfg.userCreds = username
-	}
+	cfg.userCreds = username
 
 	cfg.dbName = database
 
 	return cfg
+}
+
+// SetPort sets database port.
+//
+//  Default: "5432"
+func (c *DBConfig) SetPort(port string) {
+	host := strings.Split(c.address, ":")[0]
+
+	c.address = fmt.Sprintf("%s:%s", host, port)
+}
+
+// SetPassword sets user's password to connect to database.
+func (c *DBConfig) SetPassword(password string) {
+	username := strings.Split(c.userCreds, ":")
+
+	c.userCreds = fmt.Sprintf("%s:%s", username, password)
 }
