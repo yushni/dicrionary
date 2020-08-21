@@ -43,7 +43,7 @@ func (c *DBConfig) SetPort(port string) {
 
 // SetPassword sets user's password to connect to database.
 func (c *DBConfig) SetPassword(password string) {
-	username := strings.Split(c.userCreds, ":")
+	username := strings.Split(c.userCreds, ":")[0]
 
 	c.userCreds = fmt.Sprintf("%s:%s", username, password)
 }
