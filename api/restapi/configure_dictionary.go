@@ -9,11 +9,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/go-openapi/swag"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
+	"github.com/go-openapi/swag"
 
 	"dictionary/api/restapi/operations"
 	"dictionary/api/restapi/operations/words"
