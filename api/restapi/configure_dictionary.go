@@ -5,7 +5,10 @@ package restapi
 import (
 	"crypto/tls"
 	"dictionary/api/models"
-	"dictionary/migration"
+	"dictionary/api/restapi/operations"
+	"dictionary/api/restapi/operations/words"
+	"dictionary/app"
+	"dictionary/app/facilities"
 	"log"
 	"net/http"
 
@@ -13,9 +16,6 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/go-openapi/swag"
-
-	"dictionary/api/restapi/operations"
-	"dictionary/api/restapi/operations/words"
 )
 
 //go:generate swagger generate server --target ..\..\dictionary --name Dictionary --spec ..\api\swagger.yaml
@@ -27,6 +27,14 @@ func configureFlags(api *operations.DictionaryAPI) {
 func configureAPI(api *operations.DictionaryAPI) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
+
+	conf := facilities.NewConfig()
+	dep := app.NewDependency(conf)
+
+	err := dep.DBMigrate.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// Set your custom logger if needed. Default one is log.Printf
 	// Expected interface func(string, ...interface{})
@@ -89,24 +97,6 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 
 		return words.NewGetWordOK().WithPayload(&w)
 	})
-
-	dbConfig := migration.NewDBConfig(
-		"localhost",
-		"dictionary",
-		"admin",
-	)
-	dbConfig.SetPassword("admin")
-
-	m, err := migration.NewMigrate(
-		dbConfig,
-	)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	if err = m.Run(); err != nil {
-		log.Fatalln(err)
-	}
 
 	api.PreServerShutdown = func() {}
 
