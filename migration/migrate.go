@@ -5,7 +5,9 @@ import (
 	"fmt"
 
 	"github.com/golang-migrate/migrate/v4"
+	// database migration engine
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
+	// database migration source type
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
@@ -44,6 +46,12 @@ func WithDirectory(source string) MigrateOption {
 	}
 }
 
+type Migrate struct {
+	direction int
+	source    string
+	config    DBConfig
+}
+
 func NewMigrate(cfg DBConfig, opts ...MigrateOption) (*Migrate, error) {
 	migration := &Migrate{
 		direction: Up,
@@ -56,19 +64,6 @@ func NewMigrate(cfg DBConfig, opts ...MigrateOption) (*Migrate, error) {
 	}
 
 	return migration, nil
-}
-
-type Migrate struct {
-	// direction used to define whether run up or down migrations
-	direction int
-
-	// source is a path to folder with .sql migration files
-	// from root project directory.
-	//
-	// 	Default: "migration/migrations"
-	source string
-
-	config DBConfig
 }
 
 func (o *Migrate) Run() error {
