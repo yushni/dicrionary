@@ -1,6 +1,7 @@
 package migration
 
 import (
+	"dictionary/app/facilities"
 	"errors"
 	"fmt"
 
@@ -17,8 +18,6 @@ const (
 
 	// Down used to run all down migrations
 	Down
-
-	defaultPostgresPort = "5432"
 )
 
 var (
@@ -49,10 +48,10 @@ func WithDirectory(source string) MigrateOption {
 type Migrate struct {
 	direction int
 	source    string
-	config    DBConfig
+	config    facilities.DBConfig
 }
 
-func NewMigrate(cfg DBConfig, opts ...MigrateOption) (*Migrate, error) {
+func NewMigrate(cfg facilities.DBConfig, opts ...MigrateOption) *Migrate {
 	migration := &Migrate{
 		direction: Up,
 		source:    "migration/migrations",
@@ -63,7 +62,7 @@ func NewMigrate(cfg DBConfig, opts ...MigrateOption) (*Migrate, error) {
 		opt(migration)
 	}
 
-	return migration, nil
+	return migration
 }
 
 func (o *Migrate) Run() error {
