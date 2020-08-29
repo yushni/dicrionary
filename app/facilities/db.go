@@ -8,27 +8,21 @@ const (
 	defaultPostgresPort = "5432"
 )
 
-// DO NOT create DBConfig directly without constructor.
 type DBConfig struct {
-	host        string
-	port        string
-	username    string
-	password    string
-	hasPassword bool
-	dbName      string
+	host     string
+	port     string
+	username string
+	password string
+	dbName   string
 }
 
 func newDBConfig(host, database, username string) DBConfig {
-	cfg := DBConfig{}
-
-	cfg.host = host
-	cfg.port = defaultPostgresPort
-
-	cfg.username = username
-
-	cfg.dbName = database
-
-	return cfg
+	return DBConfig{
+		host:     host,
+		port:     defaultPostgresPort,
+		username: username,
+		dbName:   database,
+	}
 }
 
 func (c *DBConfig) setPort(port string) {
@@ -37,7 +31,6 @@ func (c *DBConfig) setPort(port string) {
 
 func (c *DBConfig) setPassword(password string) {
 	c.password = password
-	c.hasPassword = true
 }
 
 // String generates Postgres database connection URI.
@@ -46,7 +39,7 @@ func (c *DBConfig) setPassword(password string) {
 func (c DBConfig) String() string {
 	userCreds := c.username
 
-	if c.hasPassword {
+	if c.password != "" {
 		userCreds = fmt.Sprintf("%s:%s", c.username, c.password)
 	}
 
