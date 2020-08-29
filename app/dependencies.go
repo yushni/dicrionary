@@ -5,12 +5,12 @@ import (
 	"dictionary/migration"
 )
 
-type IMigrate interface {
+type Migrate interface {
 	Run() error
 }
 
 type Dependency struct {
-	DBMigrate IMigrate
+	DBMigrate Migrate
 }
 
 func NewDependency(conf facilities.Config) Dependency {
