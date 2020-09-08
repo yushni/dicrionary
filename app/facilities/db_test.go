@@ -40,17 +40,6 @@ func TestNewDBConfig(t *testing.T) {
 		assert.Equal(t, "asd", cfg.password)
 	})
 
-	t.Run("Is hasPassword field changed", func(t *testing.T) {
-		cfg := newDBConfig(
-			"",
-			"",
-			"",
-		)
-		cfg.setPassword("asd")
-
-		assert.Equal(t, true, cfg.hasPassword)
-	})
-
 	t.Run("String() returns correct value", func(t *testing.T) {
 		cfg := newDBConfig(
 			"host",
