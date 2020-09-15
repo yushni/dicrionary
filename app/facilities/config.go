@@ -15,13 +15,8 @@ func NewConfig() Config {
 		),
 	}
 
-	if pass, hasPass := os.LookupEnv("db_password"); hasPass {
-		conf.DB.setPassword(pass)
-	}
-
-	if port, hasPort := os.LookupEnv("db_port"); hasPort {
-		conf.DB.setPort(port)
-	}
+	conf.DB.setPassword(os.Getenv("db_password"))
+	conf.DB.setPort(os.Getenv("db_port"))
 
 	return conf
 }
