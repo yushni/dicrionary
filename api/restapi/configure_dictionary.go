@@ -5,15 +5,17 @@ package restapi
 import (
 	"crypto/tls"
 	"dictionary/api/models"
-	"github.com/go-openapi/swag"
+	"dictionary/api/restapi/operations"
+	"dictionary/api/restapi/operations/words"
+	"dictionary/app"
+	"dictionary/app/facilities"
+	"log"
 	"net/http"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
-
-	"dictionary/api/restapi/operations"
-	"dictionary/api/restapi/operations/words"
+	"github.com/go-openapi/swag"
 )
 
 //go:generate swagger generate server --target ..\..\dictionary --name Dictionary --spec ..\api\swagger.yaml
@@ -25,6 +27,14 @@ func configureFlags(api *operations.DictionaryAPI) {
 func configureAPI(api *operations.DictionaryAPI) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
+
+	conf := facilities.NewConfig()
+	dep := app.NewDependency(conf)
+
+	err := dep.DBMigrate.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// Set your custom logger if needed. Default one is log.Printf
 	// Expected interface func(string, ...interface{})
@@ -49,13 +59,13 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 				Origin:        swag.String("Польща"),
 				Samples:       []string{"Канапка дуже смачна.", "Канапка не дуже смачна."},
 				Transcription: swag.String("канапка"),
-				Translations:  []*models.Translation{
+				Translations: []*models.Translation{
 					&models.Translation{
 						Transcription: swag.String("бутерброд"),
 						Translation:   swag.String("Бутерброд"),
 					},
 				},
-				Word:          swag.String("Канапка"),
+				Word: swag.String("Канапка"),
 			}
 		}
 
@@ -72,7 +82,7 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 			Origin:        swag.String("Угорщина"),
 			Samples:       []string{"Сійо старий.", "Сійо, до завтра."},
 			Transcription: swag.String("[с'ійо]"),
-			Translations:  []*models.Translation{
+			Translations: []*models.Translation{
 				&models.Translation{
 					Transcription: swag.String("прив'іт"),
 					Translation:   swag.String("Привіт"),
@@ -82,7 +92,7 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 					Translation:   swag.String("Пока"),
 				},
 			},
-			Word:          swag.String("Сійо"),
+			Word: swag.String("Сійо"),
 		}
 
 		return words.NewGetWordOK().WithPayload(&w)
