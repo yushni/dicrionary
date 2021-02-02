@@ -1,7 +1,6 @@
 package facilities
 
 import (
-	"fmt"
 	"os"
 )
 
@@ -10,18 +9,22 @@ type Config struct {
 }
 
 func NewConfig() (*Config, error) {
+	var port string
+
+	port, ok := os.LookupEnv("db_port")
+	if !ok {
+		port = defaultPostgresPort
+	}
+
 	conf := &Config{
 		DB: newDBConfig(
 			os.Getenv("db_host"),
 			os.Getenv("db_name"),
+			port,
 			os.Getenv("db_user"),
+			os.Getenv("db_password"),
 		),
 	}
-
-	if err := conf.DB.setPassword(os.Getenv("db_password")); err != nil {
-		return nil, fmt.Errorf("cannot create Config: %e", err)
-	}
-	conf.DB.setPort(os.Getenv("db_port"))
 
 	return conf, nil
 }

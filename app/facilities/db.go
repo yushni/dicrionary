@@ -16,27 +16,14 @@ type DBConfig struct {
 	dbName   string
 }
 
-func newDBConfig(host, database, username string) DBConfig {
+func newDBConfig(host, database, port, username, password string) DBConfig {
 	return DBConfig{
 		host:     host,
-		port:     defaultPostgresPort,
+		port:     port,
 		username: username,
+		password: password,
 		dbName:   database,
 	}
-}
-
-func (c *DBConfig) setPort(port string) {
-	if port != "" {
-		c.port = port
-	}
-}
-
-func (c *DBConfig) setPassword(password string) (err error) {
-	if password == "" {
-		return fmt.Errorf("DBConfig error: password cannot be empty")
-	}
-	c.password = password
-	return nil
 }
 
 // String generates Postgres database connection URI.
