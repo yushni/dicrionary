@@ -26,11 +26,17 @@ func newDBConfig(host, database, username string) DBConfig {
 }
 
 func (c *DBConfig) setPort(port string) {
-	c.port = port
+	if port != "" {
+		c.port = port
+	}
 }
 
-func (c *DBConfig) setPassword(password string) {
+func (c *DBConfig) setPassword(password string) (err error) {
+	if password == "" {
+		return fmt.Errorf("DBConfig error: password cannot be empty")
+	}
 	c.password = password
+	return nil
 }
 
 // String generates Postgres database connection URI.

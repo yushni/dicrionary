@@ -13,7 +13,7 @@ type Dependency struct {
 	DBMigrate Migrate
 }
 
-func NewDependency(conf facilities.Config) Dependency {
+func NewDependency(conf *facilities.Config) Dependency {
 	migrate := migration.NewMigrate(conf.DB)
 
 	dep := Dependency{

@@ -28,10 +28,13 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
 
-	conf := facilities.NewConfig()
+	conf, err := facilities.NewConfig()
+	if err != nil {
+		log.Fatal(err)
+	}
 	dep := app.NewDependency(conf)
 
-	err := dep.DBMigrate.Run()
+	err = dep.DBMigrate.Run()
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -1,13 +1,16 @@
 package facilities
 
-import "os"
+import (
+	"fmt"
+	"os"
+)
 
 type Config struct {
 	DB DBConfig
 }
 
-func NewConfig() Config {
-	conf := Config{
+func NewConfig() (*Config, error) {
+	conf := &Config{
 		DB: newDBConfig(
 			os.Getenv("db_host"),
 			os.Getenv("db_name"),
@@ -15,8 +18,10 @@ func NewConfig() Config {
 		),
 	}
 
-	conf.DB.setPassword(os.Getenv("db_password"))
+	if err := conf.DB.setPassword(os.Getenv("db_password")); err != nil {
+		return nil, fmt.Errorf("cannot create Config: %e", err)
+	}
 	conf.DB.setPort(os.Getenv("db_port"))
 
-	return conf
+	return conf, nil
 }
