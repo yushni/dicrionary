@@ -7,18 +7,6 @@ import (
 )
 
 func TestNewDBConfig(t *testing.T) {
-	t.Run("Is default port set", func(t *testing.T) {
-		cfg := newDBConfig(
-			"",
-			"",
-			"",
-			"",
-			"",
-		)
-
-		assert.Equal(t, defaultPostgresPort, cfg.port)
-	})
-
 	t.Run("Is passed port used", func(t *testing.T) {
 		cfg := newDBConfig(
 			"",
