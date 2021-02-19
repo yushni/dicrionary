@@ -10,12 +10,11 @@ type Config struct {
 
 func NewConfig() *Config {
 	port := defaultPostgresPort
-
 	if p, ok := os.LookupEnv("db_port"); ok {
 		port = p
 	}
 
-	conf := &Config{
+	return &Config{
 		DB: newDBConfig(
 			os.Getenv("db_host"),
 			os.Getenv("db_name"),
@@ -24,6 +23,4 @@ func NewConfig() *Config {
 			os.Getenv("db_password"),
 		),
 	}
-
-	return conf
 }
