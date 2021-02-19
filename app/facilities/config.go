@@ -8,12 +8,11 @@ type Config struct {
 	DB DBConfig
 }
 
-func NewConfig() (*Config, error) {
-	var port string
+func NewConfig() *Config {
+	port := defaultPostgresPort
 
-	port, ok := os.LookupEnv("db_port")
-	if !ok {
-		port = defaultPostgresPort
+	if p, ok := os.LookupEnv("db_port"); ok {
+		port = p
 	}
 
 	conf := &Config{
@@ -26,5 +25,5 @@ func NewConfig() (*Config, error) {
 		),
 	}
 
-	return conf, nil
+	return conf
 }
