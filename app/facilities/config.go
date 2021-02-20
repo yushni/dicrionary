@@ -1,22 +1,26 @@
 package facilities
 
-import "os"
+import (
+	"os"
+)
 
 type Config struct {
 	DB DBConfig
 }
 
-func NewConfig() Config {
-	conf := Config{
+func NewConfig() *Config {
+	port := defaultPostgresPort
+	if p, ok := os.LookupEnv("db_port"); ok {
+		port = p
+	}
+
+	return &Config{
 		DB: newDBConfig(
 			os.Getenv("db_host"),
 			os.Getenv("db_name"),
+			port,
 			os.Getenv("db_user"),
+			os.Getenv("db_password"),
 		),
 	}
-
-	conf.DB.setPassword(os.Getenv("db_password"))
-	conf.DB.setPort(os.Getenv("db_port"))
-
-	return conf
 }

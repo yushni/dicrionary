@@ -31,9 +31,8 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 	conf := facilities.NewConfig()
 	dep := app.NewDependency(conf)
 
-	err := dep.DBMigrate.Run()
-	if err != nil {
-		log.Fatal(err)
+	if err := dep.DBMigrate.Run(); err != nil {
+		log.Fatalf("failed to run migrations: %v", err)
 	}
 
 	// Set your custom logger if needed. Default one is log.Printf

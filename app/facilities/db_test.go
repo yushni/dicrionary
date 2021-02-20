@@ -7,24 +7,14 @@ import (
 )
 
 func TestNewDBConfig(t *testing.T) {
-	t.Run("Is default port set", func(t *testing.T) {
-		cfg := newDBConfig(
-			"",
-			"",
-			"",
-		)
-
-		assert.Equal(t, defaultPostgresPort, cfg.port)
-	})
-
 	t.Run("Is passed port used", func(t *testing.T) {
 		cfg := newDBConfig(
 			"",
 			"",
+			"1234",
+			"",
 			"",
 		)
-
-		cfg.setPort("1234")
 
 		assert.Equal(t, "1234", cfg.port)
 	})
@@ -34,8 +24,9 @@ func TestNewDBConfig(t *testing.T) {
 			"",
 			"",
 			"",
+			"",
+			"asd",
 		)
-		cfg.setPassword("asd")
 
 		assert.Equal(t, "asd", cfg.password)
 	})
@@ -44,11 +35,10 @@ func TestNewDBConfig(t *testing.T) {
 		cfg := newDBConfig(
 			"host",
 			"db",
+			"port",
 			"user",
+			"pass",
 		)
-
-		cfg.setPort("port")
-		cfg.setPassword("pass")
 
 		assert.Equal(t, "postgres://user:pass@host:port/db", cfg.String())
 	})
