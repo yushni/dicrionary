@@ -6,6 +6,7 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
 	"strconv"
 
 	"github.com/go-openapi/errors"
@@ -27,10 +28,6 @@ type Word struct {
 	// Required: true
 	Origin *string `json:"origin"`
 
-	// samples
-	// Required: true
-	Samples []string `json:"samples"`
-
 	// transcription
 	// Required: true
 	Transcription *string `json:"transcription"`
@@ -49,10 +46,6 @@ func (m *Word) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateOrigin(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateSamples(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -77,15 +70,6 @@ func (m *Word) Validate(formats strfmt.Registry) error {
 func (m *Word) validateOrigin(formats strfmt.Registry) error {
 
 	if err := validate.Required("origin", "body", m.Origin); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func (m *Word) validateSamples(formats strfmt.Registry) error {
-
-	if err := validate.Required("samples", "body", m.Samples); err != nil {
 		return err
 	}
 
@@ -130,6 +114,51 @@ func (m *Word) validateWord(formats strfmt.Registry) error {
 
 	if err := validate.Required("word", "body", m.Word); err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// ContextValidate validate this word based on the context it is used
+func (m *Word) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.contextValidateID(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.contextValidateTranslations(ctx, formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Word) contextValidateID(ctx context.Context, formats strfmt.Registry) error {
+
+	if err := validate.ReadOnly(ctx, "id", "body", uint64(m.ID)); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Word) contextValidateTranslations(ctx context.Context, formats strfmt.Registry) error {
+
+	for i := 0; i < len(m.Translations); i++ {
+
+		if m.Translations[i] != nil {
+			if err := m.Translations[i].ContextValidate(ctx, formats); err != nil {
+				if ve, ok := err.(*errors.Validation); ok {
+					return ve.ValidateName("translations" + "." + strconv.Itoa(i))
+				}
+				return err
+			}
+		}
+
 	}
 
 	return nil

@@ -27,7 +27,6 @@ func init() {
     "title": "Dictionary",
     "version": "1.0.0"
   },
-  "host": "localhost",
   "basePath": "/",
   "paths": {
     "/words": {
@@ -68,13 +67,13 @@ func init() {
           "400": {
             "description": "Invalid input",
             "schema": {
-              "$ref": "#/definitions/ErrorBadRequest"
+              "$ref": "#/definitions/HttpError"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorInternalError"
+              "$ref": "#/definitions/HttpError"
             }
           }
         }
@@ -121,13 +120,13 @@ func init() {
           "400": {
             "description": "Invalid input",
             "schema": {
-              "$ref": "#/definitions/ErrorBadRequest"
+              "$ref": "#/definitions/HttpError"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorInternalError"
+              "$ref": "#/definitions/HttpError"
             }
           }
         }
@@ -162,19 +161,19 @@ func init() {
           "400": {
             "description": "Invalid Word ID",
             "schema": {
-              "$ref": "#/definitions/ErrorBadRequest"
+              "$ref": "#/definitions/HttpError"
             }
           },
           "404": {
             "description": "Word not found",
             "schema": {
-              "$ref": "#/definitions/ErrorNotFound"
+              "$ref": "#/definitions/HttpError"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorInternalError"
+              "$ref": "#/definitions/HttpError"
             }
           }
         }
@@ -213,19 +212,19 @@ func init() {
           "400": {
             "description": "Invalid Word ID",
             "schema": {
-              "$ref": "#/definitions/ErrorBadRequest"
+              "$ref": "#/definitions/HttpError"
             }
           },
           "404": {
             "description": "Word not found",
             "schema": {
-              "$ref": "#/definitions/ErrorNotFound"
+              "$ref": "#/definitions/HttpError"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorInternalError"
+              "$ref": "#/definitions/HttpError"
             }
           }
         }
@@ -233,29 +232,7 @@ func init() {
     }
   },
   "definitions": {
-    "ErrorBadRequest": {
-      "type": "object",
-      "required": [
-        "message"
-      ],
-      "properties": {
-        "message": {
-          "type": "string"
-        }
-      }
-    },
-    "ErrorInternalError": {
-      "type": "object",
-      "required": [
-        "message"
-      ],
-      "properties": {
-        "message": {
-          "type": "string"
-        }
-      }
-    },
-    "ErrorNotFound": {
+    "HttpError": {
       "type": "object",
       "required": [
         "message"
@@ -270,9 +247,16 @@ func init() {
       "type": "object",
       "required": [
         "translation",
-        "transcription"
+        "transcription",
+        "samples"
       ],
       "properties": {
+        "samples": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "transcription": {
           "type": "string"
         },
@@ -287,8 +271,7 @@ func init() {
         "word",
         "transcription",
         "translations",
-        "origin",
-        "samples"
+        "origin"
       ],
       "properties": {
         "id": {
@@ -298,12 +281,6 @@ func init() {
         },
         "origin": {
           "type": "string"
-        },
-        "samples": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         },
         "transcription": {
           "type": "string"
@@ -340,7 +317,6 @@ func init() {
     "title": "Dictionary",
     "version": "1.0.0"
   },
-  "host": "localhost",
   "basePath": "/",
   "paths": {
     "/words": {
@@ -381,13 +357,13 @@ func init() {
           "400": {
             "description": "Invalid input",
             "schema": {
-              "$ref": "#/definitions/ErrorBadRequest"
+              "$ref": "#/definitions/HttpError"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorInternalError"
+              "$ref": "#/definitions/HttpError"
             }
           }
         }
@@ -434,13 +410,13 @@ func init() {
           "400": {
             "description": "Invalid input",
             "schema": {
-              "$ref": "#/definitions/ErrorBadRequest"
+              "$ref": "#/definitions/HttpError"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorInternalError"
+              "$ref": "#/definitions/HttpError"
             }
           }
         }
@@ -475,19 +451,19 @@ func init() {
           "400": {
             "description": "Invalid Word ID",
             "schema": {
-              "$ref": "#/definitions/ErrorBadRequest"
+              "$ref": "#/definitions/HttpError"
             }
           },
           "404": {
             "description": "Word not found",
             "schema": {
-              "$ref": "#/definitions/ErrorNotFound"
+              "$ref": "#/definitions/HttpError"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorInternalError"
+              "$ref": "#/definitions/HttpError"
             }
           }
         }
@@ -526,19 +502,19 @@ func init() {
           "400": {
             "description": "Invalid Word ID",
             "schema": {
-              "$ref": "#/definitions/ErrorBadRequest"
+              "$ref": "#/definitions/HttpError"
             }
           },
           "404": {
             "description": "Word not found",
             "schema": {
-              "$ref": "#/definitions/ErrorNotFound"
+              "$ref": "#/definitions/HttpError"
             }
           },
           "500": {
             "description": "Internal Server Error",
             "schema": {
-              "$ref": "#/definitions/ErrorInternalError"
+              "$ref": "#/definitions/HttpError"
             }
           }
         }
@@ -546,29 +522,7 @@ func init() {
     }
   },
   "definitions": {
-    "ErrorBadRequest": {
-      "type": "object",
-      "required": [
-        "message"
-      ],
-      "properties": {
-        "message": {
-          "type": "string"
-        }
-      }
-    },
-    "ErrorInternalError": {
-      "type": "object",
-      "required": [
-        "message"
-      ],
-      "properties": {
-        "message": {
-          "type": "string"
-        }
-      }
-    },
-    "ErrorNotFound": {
+    "HttpError": {
       "type": "object",
       "required": [
         "message"
@@ -583,9 +537,16 @@ func init() {
       "type": "object",
       "required": [
         "translation",
-        "transcription"
+        "transcription",
+        "samples"
       ],
       "properties": {
+        "samples": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "transcription": {
           "type": "string"
         },
@@ -600,8 +561,7 @@ func init() {
         "word",
         "transcription",
         "translations",
-        "origin",
-        "samples"
+        "origin"
       ],
       "properties": {
         "id": {
@@ -611,12 +571,6 @@ func init() {
         },
         "origin": {
           "type": "string"
-        },
-        "samples": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
         },
         "transcription": {
           "type": "string"

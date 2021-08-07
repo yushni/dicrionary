@@ -29,7 +29,7 @@ func NewGetWord(ctx *middleware.Context, handler GetWordHandler) *GetWord {
 	return &GetWord{Context: ctx, Handler: handler}
 }
 
-/*GetWord swagger:route GET /words/{wordId} words getWord
+/* GetWord swagger:route GET /words/{wordId} words getWord
 
 Get word by ID
 
@@ -42,17 +42,15 @@ type GetWord struct {
 func (o *GetWord) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	route, rCtx, _ := o.Context.RouteInfo(r)
 	if rCtx != nil {
-		r = rCtx
+		*r = *rCtx
 	}
 	var Params = NewGetWordParams()
-
 	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
 		o.Context.Respond(rw, r, route.Produces, route, err)
 		return
 	}
 
 	res := o.Handler.Handle(Params) // actually handle the request
-
 	o.Context.Respond(rw, r, route.Produces, route, res)
 
 }
