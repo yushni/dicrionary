@@ -6,6 +6,8 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"context"
+
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
@@ -16,6 +18,10 @@ import (
 //
 // swagger:model Translation
 type Translation struct {
+
+	// samples
+	// Required: true
+	Samples []string `json:"samples"`
 
 	// transcription
 	// Required: true
@@ -30,6 +36,10 @@ type Translation struct {
 func (m *Translation) Validate(formats strfmt.Registry) error {
 	var res []error
 
+	if err := m.validateSamples(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateTranscription(formats); err != nil {
 		res = append(res, err)
 	}
@@ -41,6 +51,15 @@ func (m *Translation) Validate(formats strfmt.Registry) error {
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}
+	return nil
+}
+
+func (m *Translation) validateSamples(formats strfmt.Registry) error {
+
+	if err := validate.Required("samples", "body", m.Samples); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -59,6 +78,11 @@ func (m *Translation) validateTranslation(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this translation based on context it is used
+func (m *Translation) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

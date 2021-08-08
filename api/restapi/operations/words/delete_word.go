@@ -6,6 +6,7 @@ package words
 // Editing this file might prove futile when you re-run the generate command
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/go-openapi/errors"
@@ -33,7 +34,7 @@ func NewDeleteWord(ctx *middleware.Context, handler DeleteWordHandler) *DeleteWo
 	return &DeleteWord{Context: ctx, Handler: handler}
 }
 
-/*DeleteWord swagger:route DELETE /words/{wordId} words deleteWord
+/* DeleteWord swagger:route DELETE /words/{wordId} words deleteWord
 
 Delete a word
 
@@ -46,17 +47,15 @@ type DeleteWord struct {
 func (o *DeleteWord) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 	route, rCtx, _ := o.Context.RouteInfo(r)
 	if rCtx != nil {
-		r = rCtx
+		*r = *rCtx
 	}
 	var Params = NewDeleteWordParams()
-
 	if err := o.Context.BindValidRequest(r, route, &Params); err != nil { // bind params
 		o.Context.Respond(rw, r, route.Produces, route, err)
 		return
 	}
 
 	res := o.Handler.Handle(Params) // actually handle the request
-
 	o.Context.Respond(rw, r, route.Produces, route, res)
 
 }
@@ -91,6 +90,11 @@ func (o *DeleteWordOKBody) validateID(formats strfmt.Registry) error {
 		return err
 	}
 
+	return nil
+}
+
+// ContextValidate validates this delete word o k body based on context it is used
+func (o *DeleteWordOKBody) ContextValidate(ctx context.Context, formats strfmt.Registry) error {
 	return nil
 }
 

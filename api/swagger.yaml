@@ -6,7 +6,6 @@ info:
 externalDocs:
   description: "GitHub"
   url: "https://github.com/yushni/dictionary"
-host: "localhost"
 basePath: "/"
 tags:
   - name: "words"
@@ -44,11 +43,11 @@ paths:
         "400":
           description: "Invalid input"
           schema:
-            $ref: "#/definitions/ErrorBadRequest"
+            $ref: "#/definitions/HttpError"
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/ErrorInternalError"
+            $ref: "#/definitions/HttpError"
     get:
       tags:
         - "words"
@@ -78,11 +77,11 @@ paths:
         "400":
           description: "Invalid input"
           schema:
-            $ref: "#/definitions/ErrorBadRequest"
+            $ref: "#/definitions/HttpError"
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/ErrorInternalError"
+            $ref: "#/definitions/HttpError"
 
   /words/{wordId}:
     get:
@@ -106,15 +105,15 @@ paths:
         "400":
           description: "Invalid Word ID"
           schema:
-            $ref: "#/definitions/ErrorBadRequest"
+            $ref: "#/definitions/HttpError"
         "404":
           description: "Word not found"
           schema:
-            $ref: "#/definitions/ErrorNotFound"
+            $ref: "#/definitions/HttpError"
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/ErrorInternalError"
+            $ref: "#/definitions/HttpError"
 
     delete:
       tags:
@@ -141,15 +140,15 @@ paths:
         "400":
           description: "Invalid Word ID"
           schema:
-            $ref: "#/definitions/ErrorBadRequest"
+            $ref: "#/definitions/HttpError"
         "404":
           description: "Word not found"
           schema:
-            $ref: "#/definitions/ErrorNotFound"
+            $ref: "#/definitions/HttpError"
         "500":
           description: "Internal Server Error"
           schema:
-            $ref: "#/definitions/ErrorInternalError"
+            $ref: "#/definitions/HttpError"
 
 definitions:
   Translation:
@@ -157,11 +156,16 @@ definitions:
     required:
       - "translation"
       - "transcription"
+      - "samples"
     properties:
       translation:
         type: "string"
       transcription:
         type: "string"
+      samples:
+        type: "array"
+        items:
+          type: "string"
   Word:
     type: "object"
     required:
@@ -169,7 +173,6 @@ definitions:
       - "transcription"
       - "translations"
       - "origin"
-      - "samples"
     properties:
       id:
         type: "integer"
@@ -185,28 +188,10 @@ definitions:
           $ref: "#/definitions/Translation"
       origin:
         type: "string"
-      samples:
-        type: "array"
-        items:
-          type: "string"
-  ErrorBadRequest:
+  HttpError:
     type: "object"
-    required:
-      - "message"
     properties:
       message:
         type: "string"
-  ErrorNotFound:
-    type: "object"
     required:
       - "message"
-    properties:
-      message:
-        type: "string"
-  ErrorInternalError:
-    type: "object"
-    required:
-      - "message"
-    properties:
-      message:
-        type: "string"

@@ -15,7 +15,8 @@ import (
 )
 
 // NewDeleteWordParams creates a new DeleteWordParams object
-// no default values defined in spec.
+//
+// There are no default values defined in the spec.
 func NewDeleteWordParams() DeleteWordParams {
 
 	return DeleteWordParams{}
@@ -50,7 +51,6 @@ func (o *DeleteWordParams) BindRequest(r *http.Request, route *middleware.Matche
 	if err := o.bindWordID(rWordID, rhkWordID, route.Formats); err != nil {
 		res = append(res, err)
 	}
-
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)
 	}

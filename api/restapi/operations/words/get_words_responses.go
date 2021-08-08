@@ -72,7 +72,7 @@ type GetWordsBadRequest struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.ErrorBadRequest `json:"body,omitempty"`
+	Payload *models.HTTPError `json:"body,omitempty"`
 }
 
 // NewGetWordsBadRequest creates GetWordsBadRequest with default headers values
@@ -82,13 +82,13 @@ func NewGetWordsBadRequest() *GetWordsBadRequest {
 }
 
 // WithPayload adds the payload to the get words bad request response
-func (o *GetWordsBadRequest) WithPayload(payload *models.ErrorBadRequest) *GetWordsBadRequest {
+func (o *GetWordsBadRequest) WithPayload(payload *models.HTTPError) *GetWordsBadRequest {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the get words bad request response
-func (o *GetWordsBadRequest) SetPayload(payload *models.ErrorBadRequest) {
+func (o *GetWordsBadRequest) SetPayload(payload *models.HTTPError) {
 	o.Payload = payload
 }
 
@@ -116,7 +116,7 @@ type GetWordsInternalServerError struct {
 	/*
 	  In: Body
 	*/
-	Payload *models.ErrorInternalError `json:"body,omitempty"`
+	Payload *models.HTTPError `json:"body,omitempty"`
 }
 
 // NewGetWordsInternalServerError creates GetWordsInternalServerError with default headers values
@@ -126,13 +126,13 @@ func NewGetWordsInternalServerError() *GetWordsInternalServerError {
 }
 
 // WithPayload adds the payload to the get words internal server error response
-func (o *GetWordsInternalServerError) WithPayload(payload *models.ErrorInternalError) *GetWordsInternalServerError {
+func (o *GetWordsInternalServerError) WithPayload(payload *models.HTTPError) *GetWordsInternalServerError {
 	o.Payload = payload
 	return o
 }
 
 // SetPayload sets the payload to the get words internal server error response
-func (o *GetWordsInternalServerError) SetPayload(payload *models.ErrorInternalError) {
+func (o *GetWordsInternalServerError) SetPayload(payload *models.HTTPError) {
 	o.Payload = payload
 }
 
