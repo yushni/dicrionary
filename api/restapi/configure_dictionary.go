@@ -1,5 +1,3 @@
-// This file is safe to edit. Once it exists it will not be overwritten
-
 package restapi
 
 import (
@@ -19,11 +17,7 @@ import (
 	"github.com/go-openapi/swag"
 )
 
-//go:generate swagger generate server --target ..\..\dictionary --name Dictionary --spec ..\api\swagger.yaml
-
-func configureFlags(api *operations.DictionaryAPI) {
-	// api.CommandLineOptionsGroups = []swag.CommandLineOptionsGroup{ ... }
-}
+func configureFlags(*operations.DictionaryAPI) {}
 
 func configureAPI(api *operations.DictionaryAPI) http.Handler {
 	// configure the api here
@@ -36,16 +30,8 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 		log.Fatalf("failed to run migrations: %v", err)
 	}
 
-	// Set your custom logger if needed. Default one is log.Printf
-	// Expected interface func(string, ...interface{})
-	//
-	// Example:
-	// api.Logger = log.Printf
-
 	api.JSONConsumer = runtime.JSONConsumer()
-
 	api.JSONProducer = runtime.JSONProducer()
-
 	api.WordsAddWordHandler = words.AddWordHandlerFunc(func(params words.AddWordParams) middleware.Responder {
 		return words.NewAddWordOK().WithPayload(&words.AddWordOKBody{ID: swag.Uint64(1)})
 	})
@@ -57,14 +43,11 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 			w[i] = &models.Word{
 				ID:            uint64(i),
 				Origin:        swag.String("Польща"),
-				Samples:       []string{"Канапка дуже смачна.", "Канапка не дуже смачна."},
 				Transcription: swag.String("канапка"),
-				Translations: []*models.Translation{
-					&models.Translation{
-						Transcription: swag.String("бутерброд"),
-						Translation:   swag.String("Бутерброд"),
-					},
-				},
+				Translations: []*models.Translation{{
+					Transcription: swag.String("бутерброд"),
+					Translation:   swag.String("Бутерброд"),
+				}},
 				Word: swag.String("Канапка"),
 			}
 		}
@@ -80,14 +63,13 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 		w := models.Word{
 			ID:            params.WordID,
 			Origin:        swag.String("Угорщина"),
-			Samples:       []string{"Сійо старий.", "Сійо, до завтра."},
 			Transcription: swag.String("[с'ійо]"),
 			Translations: []*models.Translation{
-				&models.Translation{
+				{
 					Transcription: swag.String("прив'іт"),
 					Translation:   swag.String("Привіт"),
 				},
-				&models.Translation{
+				{
 					Transcription: swag.String("пока"),
 					Translation:   swag.String("Пока"),
 				},
