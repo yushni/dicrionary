@@ -1,3 +1,9 @@
 .idea
 
 vendor/
+
+# ignore generated code
+api/cmd/*-server/
+api/models/
+api/restapi
+!api/restapi/configure_*
