@@ -1,9 +1,10 @@
 package migration
 
 import (
-	"dictionary/app/facilities"
 	"errors"
 	"fmt"
+
+	"dictionary/app/facilities"
 
 	"github.com/golang-migrate/migrate/v4"
 	// database migration engine
