@@ -4,13 +4,14 @@ package restapi
 
 import (
 	"crypto/tls"
+	"log"
+	"net/http"
+
 	"dictionary/api/models"
 	"dictionary/api/restapi/operations"
 	"dictionary/api/restapi/operations/words"
 	"dictionary/app"
 	"dictionary/app/facilities"
-	"log"
-	"net/http"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
