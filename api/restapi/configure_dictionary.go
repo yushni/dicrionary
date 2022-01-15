@@ -57,7 +57,6 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 			w[i] = &models.Word{
 				ID:            uint64(i),
 				Origin:        swag.String("Польща"),
-				Samples:       []string{"Канапка дуже смачна.", "Канапка не дуже смачна."},
 				Transcription: swag.String("канапка"),
 				Translations: []*models.Translation{
 					&models.Translation{
@@ -80,7 +79,6 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 		w := models.Word{
 			ID:            params.WordID,
 			Origin:        swag.String("Угорщина"),
-			Samples:       []string{"Сійо старий.", "Сійо, до завтра."},
 			Transcription: swag.String("[с'ійо]"),
 			Translations: []*models.Translation{
 				&models.Translation{
