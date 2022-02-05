@@ -1,6 +1,6 @@
 FROM golang:1.17 as builder
 RUN mkdir /app
-COPY . /app
+COPY .. /app
 WORKDIR /app
 
 # Install go-swagger
@@ -21,7 +21,7 @@ FROM gcr.io/distroless/base-debian10
 WORKDIR /
 COPY --from=builder /app/main /
 # where to put these files, how to configure it?
-COPY ./db/migration_scripts /db/migration_scripts
+COPY ../db/migration_scripts /db/migration_scripts
 
 ENV DB_HOST="host.docker.internal"
 EXPOSE 8080
