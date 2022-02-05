@@ -9,7 +9,7 @@ import (
 	"dictionary/api/restapi/operations"
 	"dictionary/api/restapi/operations/words"
 	"dictionary/app"
-	"dictionary/app/facilities"
+	"dictionary/facilities"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
@@ -27,7 +27,7 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 	dep := app.NewDependency(conf)
 
 	if err := dep.DBMigrate.Run(); err != nil {
-		log.Fatalf("failed to run migrations: %v", err)
+		log.Fatalf("failed to run migration_scripts: %v", err)
 	}
 
 	api.JSONConsumer = runtime.JSONConsumer()
