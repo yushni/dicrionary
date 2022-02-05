@@ -3,7 +3,7 @@ package db
 import (
 	"errors"
 
-	"dictionary/app/facilities"
+	"dictionary/facilities"
 
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
@@ -24,7 +24,7 @@ type Migrate struct {
 func NewMigrate(cfg facilities.DBConfig) *Migrate {
 	return &Migrate{
 		direction: Up,
-		source:    "migration/migrations",
+		source:    "db/migration_scripts",
 		config:    cfg,
 	}
 }

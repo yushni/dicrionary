@@ -1,8 +1,8 @@
 package app
 
 import (
-	"dictionary/app/facilities"
 	"dictionary/db"
+	"dictionary/facilities"
 )
 
 type Migrate interface {

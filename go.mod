@@ -3,6 +3,7 @@ module dictionary
 go 1.17
 
 require (
+	github.com/caarlos0/env/v6 v6.9.1
 	github.com/go-openapi/errors v0.20.1
 	github.com/go-openapi/loads v0.21.0
 	github.com/go-openapi/runtime v0.21.0
