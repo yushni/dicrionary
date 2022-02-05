@@ -1,4 +1,4 @@
-FROM golang:latest as builder
+FROM golang:1.17 as builder
 RUN mkdir /app
 COPY . /app
 WORKDIR /app
@@ -12,17 +12,20 @@ RUN dir=$(mktemp -d) &&\
 # Generate code and build app
 RUN  go generate &&\
      go get -u ./api/... &&\
-     go build -o main ./api/cmd/dictionary-server
+     GOOS=linux GOARCH=amd64 go build -o main ./api/cmd/dictionary-server
 
 # I've done this, becouse i expect copy only binary and migration_scripts \
 # should decrease the image size
-FROM golang:latest
+# WHY it does not wokrs for alpine:latest?
+FROM gcr.io/distroless/base-debian10
 WORKDIR /
 COPY --from=builder /app/main /
-
 # where to put these files, how to configure it?
 COPY ./db/migration_scripts /db/migration_scripts
 
+ENV DB_HOST="host.docker.internal"
 EXPOSE 8080
+
 # why cmd does not works here? why host must be 0.0.0.0?
-ENTRYPOINT DB_HOST="host.docker.internal" /main --port 8080 --host 0.0.0.0
+# read and understand the difference between ["/main"] syntax and /main
+ENTRYPOINT ["/main", "--port", "8080", "--host", "0.0.0.0"]
