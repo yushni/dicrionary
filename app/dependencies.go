@@ -2,7 +2,7 @@ package app
 
 import (
 	"dictionary/app/facilities"
-	"dictionary/migration"
+	"dictionary/db"
 )
 
 type Migrate interface {
@@ -14,7 +14,7 @@ type Dependency struct {
 }
 
 func NewDependency(conf *facilities.Config) Dependency {
-	migrate := migration.NewMigrate(conf.DB)
+	migrate := db.NewMigrate(conf.DB)
 
 	dep := Dependency{
 		DBMigrate: migrate,
