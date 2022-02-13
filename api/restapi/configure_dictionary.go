@@ -2,15 +2,11 @@ package restapi
 
 import (
 	"crypto/tls"
-	"log"
 	"net/http"
 
 	"dictionary/api/models"
 	"dictionary/api/restapi/operations"
 	"dictionary/api/restapi/operations/words"
-	"dictionary/app"
-	"dictionary/facilities"
-
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
@@ -23,12 +19,12 @@ func configureAPI(api *operations.DictionaryAPI) http.Handler {
 	// configure the api here
 	api.ServeError = errors.ServeError
 
-	conf := facilities.NewConfig()
-	dep := app.NewDependency(conf)
-
-	if err := dep.DBMigrate.Run(); err != nil {
-		log.Fatalf("failed to run migration_scripts: %v", err)
-	}
+	//conf := facilities.NewConfig()
+	//dep := app.NewDependency(conf)
+	//
+	//if err := dep.DBMigrate.Run(); err != nil {
+	//	log.Fatalf("failed to run migration_scripts: %v", err)
+	//}
 
 	api.JSONConsumer = runtime.JSONConsumer()
 	api.JSONProducer = runtime.JSONProducer()

@@ -25,7 +25,6 @@ COPY ../db/migration_scripts /db/migration_scripts
 
 ENV DB_HOST="host.docker.internal"
 EXPOSE 8080
-
 # why cmd does not works here? why host must be 0.0.0.0?
 # read and understand the difference between ["/main"] syntax and /main
-ENTRYPOINT ["/main", "--port", "8080", "--host", "0.0.0.0"]
+CMD ["/main", "--port=8080", "--host=0.0.0.0"]

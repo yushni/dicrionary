@@ -13,5 +13,15 @@ After successful installation follow commands below to generate code *(assuming 
 go generate
 ```
 
+## DEPLOY
+To build docker image and push to the image registry run from the project root
+```bash
+docker build -t yurashni/dictionary -f ./deploy/Dockerfile .
+docker push yurashni/dictionary:latest
+```
+
+
+
+
 
 
